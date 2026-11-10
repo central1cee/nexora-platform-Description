@@ -1,1 +1,249 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080D19">
+<title>NEXORA | Beyond the Ordinary</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+:root {
+  --bg:#080D19;
+  --panel:#101a2b;
+  --panel2:#14243a;
+  --cyan:#20c8f5;
+  --purple:#855bfa;
+  --text:#f4f7ff;
+  --muted:#91a1b9;
+  --border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 85% 0%,rgba(32,200,245,.13),transparent 35%),
+    radial-gradient(ellipse at 0% 35%,rgba(133,91,250,.10),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+button{font:inherit;cursor:pointer}
+.app{max-width:650px;margin:auto;padding:22px 18px 105px}
+header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:45px;height:45px;border-radius:15px;
+  display:grid;place-items:center;font-size:25px;font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:white;box-shadow:0 0 25px #20c8f540;
+}
+.brand-name{font-size:19px;font-weight:900;letter-spacing:2px}
+.brand-sub{font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
+.lang{
+  border:1px solid var(--border);background:var(--panel);
+  color:white;border-radius:12px;padding:10px 13px;
+}
+.hero{
+  margin-top:30px;padding:28px 22px;border-radius:25px;
+  background:linear-gradient(135deg,#142c43,#171b38 70%,#202044);
+  border:1px solid #ffffff13;position:relative;overflow:hidden;
+}
+.hero:after{
+  content:"";position:absolute;width:180px;height:180px;
+  border:1px solid #20c8f544;border-radius:50%;
+  right:-80px;top:-65px;box-shadow:0 0 0 20px #20c8f510,0 0 0 42px #20c8f508;
+}
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--cyan);font-weight:bold}
+h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
+.gradient{
+  background:linear-gradient(90deg,#20c8f5,#a18aff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:#b6c4d8;font-size:13px;line-height:1.9;max-width:340px}
+.hero-button{
+  border:0;border-radius:12px;padding:13px 18px;margin-top:12px;
+  color:#07111e;font-weight:800;
+  background:linear-gradient(100deg,var(--cyan),#9c91ff);
+}
+.section-title{
+  display:flex;justify-content:space-between;align-items:center;
+  margin:30px 2px 14px;
+}
+.section-title h2{font-size:17px;margin:0}
+.section-title span{font-size:10px;color:var(--muted);letter-spacing:1px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{
+  background:linear-gradient(145deg,#14243a,#0e1728);
+  border:1px solid var(--border);border-radius:18px;
+  padding:17px 15px;min-height:145px;
+  transition:.2s;
+}
+.card:active{transform:scale(.98)}
+.card-icon{
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:13px;background:#20c8f51a;font-size:22px;
+  margin-bottom:13px;
+}
+.card h3{font-size:14px;margin:0 0 7px}
+.card p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}
+.wide{grid-column:span 2;min-height:auto;display:flex;align-items:center;gap:15px}
+.wide .card-icon{margin:0;flex-shrink:0}
+.notice{
+  margin-top:25px;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#101a2b;color:var(--muted);
+  font-size:11px;line-height:1.8;
+}
+.bottom{
+  position:fixed;bottom:0;left:0;right:0;z-index:5;
+  background:#080d19ed;backdrop-filter:blur(15px);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:center;
+}
+.nav{width:100%;max-width:650px;display:flex;justify-content:space-around;padding:12px 5px calc(12px + env(safe-area-inset-bottom))}
+.nav button{
+  background:none;border:0;color:var(--muted);
+  font-size:10px;display:flex;flex-direction:column;align-items:center;gap:5px;
+}
+.nav button b{font-size:20px;font-weight:400}
+.nav button.active{color:var(--cyan)}
+.toast{
+  position:fixed;bottom:95px;left:50%;transform:translateX(-50%);
+  background:#1c2c42;border:1px solid #20c8f555;
+  color:white;padding:12px 17px;border-radius:12px;
+  font-size:12px;display:none;z-index:10;
+  width:max-content;max-width:90%;
+}
+[dir="rtl"]{font-family:Arial,sans-serif}
+[dir="rtl"] .hero:after{right:auto;left:-80px}
+[dir="rtl"] .section-title{flex-direction:row}
+@media(max-width:380px){
+ h1{font-size:29px}
+ .app{padding-left:14px;padding-right:14px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEXORA</div>
+        <div class="brand-sub">NEXT GENERATION</div>
+      </div>
+    </div>
+    <button class="lang" id="langBtn" onclick="toggleLanguage()">🌐 EN</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow" data-en="WELCOME TO THE FUTURE" data-fa="به آینده خوش آمدید">WELCOME TO THE FUTURE</div>
+      <h1 data-en="Beyond the <span class='gradient'>Ordinary.</span>" data-fa="فراتر از <span class='gradient'>معمولی.</span>">Beyond the <span class="gradient">Ordinary.</span></h1>
+      <p data-en="Discover a smarter digital world. Explore technology, creativity and new possibilities in one place."
+         data-fa="دنیای هوشمندتر دیجیتال را کشف کنید. فناوری، خلاقیت و امکانات تازه را در یک مکان تجربه کنید.">
+         Discover a smarter digital world. Explore technology, creativity and new possibilities in one place.
+      </p>
+      <button class="hero-button" onclick="showMessage('Welcome to NEXORA!')"
+        data-en="Explore NEXORA →" data-fa="کاوش در NEXORA ←">Explore NEXORA →</button>
+    </section>
+
+    <div class="section-title">
+      <h2 data-en="Explore Platform" data-fa="بخش‌های پلتفرم">Explore Platform</h2>
+      <span>DISCOVER MORE</span>
+    </div>
+
+    <section class="grid">
+      <div class="card" onclick="showMessage('NEX AI — Coming Soon')">
+        <div class="card-icon">✦</div>
+        <h3>NEX AI</h3>
+        <p data-en="Your intelligent digital assistant." data-fa="دستیار هوشمند دیجیتال شما.">Your intelligent digital assistant.</p>
+      </div>
+
+      <div class="card" onclick="showMessage('NEX Studio — Coming Soon')">
+        <div class="card-icon">◈</div>
+        <h3>NEX Studio</h3>
+        <p data-en="A space for creativity and ideas." data-fa="فضایی برای خلاقیت و ایده‌ها.">A space for creativity and ideas.</p>
+      </div>
+
+      <div class="card" onclick="showMessage('NEX Tools — Coming Soon')">
+        <div class="card-icon">⌘</div>
+        <h3>NEX Tools</h3>
+        <p data-en="Useful tools for everyday digital life." data-fa="ابزارهای کاربردی برای زندگی دیجیتال.">Useful tools for everyday digital life.</p>
+      </div>
+
+      <div class="card" onclick="showMessage('NEX Learn — Coming Soon')">
+        <div class="card-icon">◎</div>
+        <h3>NEX Learn</h3>
+        <p data-en="Discover knowledge and learn new skills." data-fa="دانش را کشف کنید و مهارت‌های تازه بیاموزید.">Discover knowledge and learn new skills.</p>
+      </div>
+
+      <div class="card wide" onclick="showMessage('NEX Space — Coming Soon')">
+        <div class="card-icon">🌐</div>
+        <div>
+          <h3>NEX Space</h3>
+          <p data-en="Your personal space in the NEXORA universe." data-fa="فضای شخصی شما در جهان NEXORA.">Your personal space in the NEXORA universe.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong style="color:#20c8f5">✧ NEXORA VISION</strong><br>
+      <span data-en="One Platform. Endless Possibilities. New features are being developed."
+        data-fa="یک پلتفرم، بی‌نهایت امکانات. قابلیت‌های جدید در حال توسعه هستند.">
+        One Platform. Endless Possibilities. New features are being developed.
+      </span>
+    </section>
+  </main>
+</div>
+
+<div class="bottom">
+  <nav class="nav">
+    <button class="active" onclick="showMessage('You are on Home')"><b>⌂</b><span data-en="Home" data-fa="خانه">Home</span></button>
+    <button onclick="showMessage('Explore — Coming Soon')"><b>◈</b><span data-en="Explore" data-fa="کاوش">Explore</span></button>
+    <button onclick="showMessage('Services — Coming Soon')"><b>✦</b><span data-en="Services" data-fa="خدمات">Services</span></button>
+    <button onclick="showMessage('Profile — Coming Soon')"><b>◎</b><span data-en="Profile" data-fa="حساب">Profile</span></button>
+  </nav>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#080D19');
+  tg.setBackgroundColor('#080D19');
+}
+
+let language = 'en';
+
+function toggleLanguage(){
+  language = language === 'en' ? 'fa' : 'en';
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
+  document.getElementById('langBtn').textContent =
+    language === 'fa' ? '🌐 فارسی' : '🌐 EN';
+
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerHTML = el.dataset[language];
+  });
+}
+
+function showMessage(message){
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(()=>{
+    toast.style.display = 'none';
+  },2500);
+}
+</script>
+</body>
+</html>
+
