@@ -32,6 +32,7 @@ body{
 }
 button,input{font:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
 .app{max-width:650px;margin:auto;padding:22px 18px 105px}
 header{display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;align-items:center;gap:11px}
@@ -162,6 +163,7 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   padding:12px 14px;border-radius:14px;
   margin:12px 0;font-size:13px;line-height:1.8;
   max-width:88%;overflow-wrap:anywhere;
+  white-space:pre-wrap;
 }
 .user-message{
   margin-left:auto;
@@ -173,6 +175,9 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   background:#14243a;color:#dce8f8;
   border:1px solid var(--border);
   border-bottom-left-radius:4px;
+}
+.ai-message.error{
+  border-color:#ff777755;
 }
 .chat-input-area{
   display:flex;gap:9px;margin-top:13px;
@@ -282,7 +287,6 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
 
 </main>
 
-<!-- NEX AI -->
 <section id="aiView">
 
   <button class="back-button" onclick="closeAI()"
@@ -301,31 +305,32 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
 
   <div class="ai-status">
     <strong>● NEX AI</strong><br>
-    <span data-en="The chat interface is ready. Smart AI responses will be enabled after connecting a secure AI server."
-      data-fa="رابط چت آماده است. پاسخ‌های واقعی هوش مصنوعی پس از اتصال سرور امن فعال خواهند شد.">
-      The chat interface is ready. Smart AI responses will be enabled after connecting a secure AI server.
+    <span data-en="Chat server connected. AI provider setup is still required."
+      data-fa="سرور چت متصل است. برای پاسخ‌های هوشمند، اتصال مدل هوش مصنوعی هنوز لازم است.">
+      Chat server connected. AI provider setup is still required.
     </span>
   </div>
 
   <div class="chat-box" id="chatBox">
     <div class="welcome-message"
-      data-en="Hello! Welcome to NEX AI. I am your digital assistant. You can type a message below to test the chat interface."
-      data-fa="سلام! به NEX AI خوش آمدید. من دستیار دیجیتال شما هستم. برای آزمایش رابط چت، پیام خود را در پایین بنویسید.">
-      Hello! Welcome to NEX AI. I am your digital assistant. You can type a message below to test the chat interface.
+      data-en="Hello! Welcome to NEX AI. Send a message to test the connection."
+      data-fa="سلام! به NEX AI خوش آمدید. برای آزمایش اتصال، پیام خود را بنویسید.">
+      Hello! Welcome to NEX AI. Send a message to test the connection.
     </div>
   </div>
 
-  <form class="chat-input-area" onsubmit="sendAIMessage(event)">
+  <form class="chat-input-area" id="chatForm">
     <input id="aiInput" type="text" autocomplete="off"
+      maxlength="1000"
       placeholder="Type your message..."
       aria-label="Message">
     <button id="sendAI" type="submit">➤</button>
   </form>
 
   <div class="ai-hint"
-    data-en="NEX AI preview • Real AI connection is not enabled yet."
-    data-fa="پیش‌نمایش NEX AI • اتصال واقعی هوش مصنوعی هنوز فعال نشده است.">
-    NEX AI preview • Real AI connection is not enabled yet.
+    data-en="NEX AI • Connected to the NEXORA server"
+    data-fa="NEX AI • متصل به سرور NEXORA">
+    NEX AI • Connected to the NEXORA server
   </div>
 
 </section>
@@ -362,6 +367,7 @@ if(tg){
 }
 
 let language = 'en';
+let isSending = false;
 
 function toggleLanguage(){
   language = language === 'en' ? 'fa' : 'en';
@@ -404,32 +410,123 @@ function closeAI(){
   window.scrollTo(0,0);
 }
 
-function sendAIMessage(event){
+function addMessage(text, type){
+  const chatBox = document.getElementById('chatBox');
+  const message = document.createElement('div');
+
+  message.className = 'message ' + type;
+  message.textContent = text;
+
+  chatBox.appendChild(message);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  return message;
+}
+
+function getServerError(data){
+  if(data && data.status === 'setup_required'){
+    return language === 'fa'
+      ? 'سرور فعال است، اما هنوز مدل هوش مصنوعی به آن متصل نشده است.'
+      : 'The server is running, but an AI provider has not been connected yet.';
+  }
+
+  return data?.error || (
+    language === 'fa'
+      ? 'در دریافت پاسخ از سرور مشکلی رخ داد.'
+      : 'The server could not process your request.'
+  );
+}
+
+async function sendAIMessage(event){
   event.preventDefault();
 
+  if(isSending) return;
+
   const input = document.getElementById('aiInput');
-  const chatBox = document.getElementById('chatBox');
+  const sendButton = document.getElementById('sendAI');
   const message = input.value.trim();
 
   if(!message) return;
 
-  const userMessage = document.createElement('div');
-  userMessage.className = 'message user-message';
-  userMessage.textContent = message;
-  chatBox.appendChild(userMessage);
+  if(message.length > 1000){
+    addMessage(
+      language === 'fa'
+        ? 'پیام نباید بیشتر از ۱۰۰۰ حرف باشد.'
+        : 'Message must not exceed 1000 characters.',
+      'ai-message error'
+    );
+    return;
+  }
 
-  const aiMessage = document.createElement('div');
-  aiMessage.className = 'message ai-message';
+  isSending = true;
+  sendButton.disabled = true;
+  input.disabled = true;
 
-  aiMessage.textContent = language === 'fa'
-    ? 'پیام شما در رابط NEX AI ثبت شد. برای دریافت پاسخ واقعی و هوشمند، باید سرور هوش مصنوعی به این بخش متصل شود.'
-    : 'Your message has been added to the NEX AI interface. A secure AI server connection is needed to generate real intelligent responses.';
-
-  chatBox.appendChild(aiMessage);
-
+  addMessage(message, 'user-message');
   input.value = '';
-  chatBox.scrollTop = chatBox.scrollHeight;
+
+  const loadingMessage = addMessage(
+    language === 'fa' ? 'در حال ارتباط با سرور...' : 'Connecting to server...',
+    'ai-message'
+  );
+
+  try{
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message })
+    });
+
+    let data = {};
+
+    try{
+      data = await response.json();
+    }catch{
+      throw new Error(
+        language === 'fa'
+          ? 'پاسخ سرور قابل خواندن نیست.'
+          : 'The server returned an unreadable response.'
+      );
+    }
+
+    if(!response.ok){
+      loadingMessage.textContent = getServerError(data);
+      loadingMessage.classList.add('error');
+    }else{
+      loadingMessage.textContent =
+        data.reply || (
+          language === 'fa'
+            ? 'سرور پاسخ دریافت کرد، اما متن پاسخی ارسال نکرد.'
+            : 'The server received your message but returned no reply.'
+        );
+    }
+
+  }catch(error){
+    loadingMessage.textContent =
+      language === 'fa'
+        ? 'ارتباط با سرور برقرار نشد. اتصال اینترنت یا وضعیت سرور را بررسی کنید.'
+        : 'Could not connect to the server. Please check your internet connection or server status.';
+
+    loadingMessage.classList.add('error');
+    console.error('NEX AI request error:', error);
+
+  }finally{
+    isSending = false;
+    sendButton.disabled = false;
+    input.disabled = false;
+    input.focus();
+
+    const chatBox = document.getElementById('chatBox');
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
 }
+
+document.getElementById('chatForm').addEventListener(
+  'submit',
+  sendAIMessage
+);
 </script>
 
 </body>
