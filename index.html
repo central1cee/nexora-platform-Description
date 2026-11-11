@@ -1,15 +1,15 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080D19">
+<meta name="description" content="NEXORA — One Platform. Endless Possibilities.">
 <title>NEXORA | Beyond the Ordinary</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-:root {
+:root{
   --bg:#080D19;
   --panel:#101a2b;
   --panel2:#14243a;
@@ -18,6 +18,7 @@
   --text:#f4f7ff;
   --muted:#91a1b9;
   --border:rgba(255,255,255,.08);
+  --danger:#ff7777;
 }
 *{box-sizing:border-box}
 body{
@@ -32,8 +33,8 @@ body{
 }
 button,input{font:inherit}
 button{cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}
-.app{max-width:650px;margin:auto;padding:22px 18px 105px}
+button:disabled{opacity:.5;cursor:not-allowed}
+.app{max-width:650px;margin:auto;padding:22px 18px 110px}
 header{display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;align-items:center;gap:11px}
 .logo{
@@ -44,7 +45,7 @@ header{display:flex;justify-content:space-between;align-items:center}
 }
 .brand-name{font-size:19px;font-weight:900;letter-spacing:2px}
 .brand-sub{font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
-.lang{
+.lang,.small-button{
   border:1px solid var(--border);background:var(--panel);
   color:white;border-radius:12px;padding:10px 13px;
 }
@@ -56,7 +57,9 @@ header{display:flex;justify-content:space-between;align-items:center}
 .hero:after{
   content:"";position:absolute;width:180px;height:180px;
   border:1px solid #20c8f544;border-radius:50%;
-  right:-80px;top:-65px;box-shadow:0 0 0 20px #20c8f510,0 0 0 42px #20c8f508;
+  right:-80px;top:-65px;
+  box-shadow:0 0 0 20px #20c8f510,0 0 0 42px #20c8f508;
+  pointer-events:none;
 }
 .eyebrow{font-size:10px;letter-spacing:3px;color:var(--cyan);font-weight:bold}
 h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
@@ -80,8 +83,7 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
 .card{
   background:linear-gradient(145deg,#14243a,#0e1728);
   border:1px solid var(--border);border-radius:18px;
-  padding:17px 15px;min-height:145px;
-  transition:.2s;
+  padding:17px 15px;min-height:145px;transition:.2s;
 }
 .card:active{transform:scale(.98)}
 .card-icon{
@@ -104,7 +106,10 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   border-top:1px solid var(--border);
   display:flex;justify-content:center;
 }
-.nav{width:100%;max-width:650px;display:flex;justify-content:space-around;padding:12px 5px calc(12px + env(safe-area-inset-bottom))}
+.nav{
+  width:100%;max-width:650px;display:flex;justify-content:space-around;
+  padding:12px 5px calc(12px + env(safe-area-inset-bottom));
+}
 .nav button{
   background:none;border:0;color:var(--muted);
   font-size:10px;display:flex;flex-direction:column;align-items:center;gap:5px;
@@ -115,18 +120,15 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   position:fixed;bottom:95px;left:50%;transform:translateX(-50%);
   background:#1c2c42;border:1px solid #20c8f555;
   color:white;padding:12px 17px;border-radius:12px;
-  font-size:12px;display:none;z-index:10;
+  font-size:12px;display:none;z-index:20;
   width:max-content;max-width:90%;
 }
-[dir="rtl"]{font-family:Arial,sans-serif}
-[dir="rtl"] .hero:after{right:auto;left:-80px}
 
-/* NEX AI PAGE */
+/* AI VIEW */
 #aiView{display:none;margin-top:25px}
 .ai-heading{
-  display:flex;align-items:center;gap:13px;
-  padding:18px;border-radius:19px;
-  background:linear-gradient(135deg,#142c43,#171b38);
+  display:flex;align-items:center;gap:13px;padding:18px;
+  border-radius:19px;background:linear-gradient(135deg,#142c43,#171b38);
   border:1px solid var(--border);
 }
 .ai-symbol{
@@ -141,17 +143,27 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   border:1px solid var(--border);border-radius:11px;
   background:var(--panel);color:var(--text);
 }
-.ai-status{
-  margin-top:15px;padding:13px;border-radius:13px;
-  background:#101a2b;border:1px solid var(--border);
-  color:var(--muted);font-size:11px;line-height:1.8;
+.ai-toolbar{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-top:14px;
 }
+.ai-status{
+  flex:1;padding:11px 12px;border-radius:12px;
+  background:#101a2b;border:1px solid var(--border);
+  color:var(--muted);font-size:10px;line-height:1.7;
+}
+.status-dot{color:#ffbd59}
 .ai-status strong{color:var(--cyan)}
+.clear-button{
+  padding:10px 12px;border-radius:11px;
+  border:1px solid var(--border);background:#101a2b;
+  color:#ffaaaa;font-size:11px;white-space:nowrap;
+}
 .chat-box{
-  margin-top:16px;min-height:300px;max-height:48vh;
+  margin-top:15px;min-height:310px;max-height:48vh;
   overflow-y:auto;padding:15px;
   border:1px solid var(--border);border-radius:18px;
-  background:#0c1525;
+  background:#0c1525;scroll-behavior:smooth;
 }
 .welcome-message{
   padding:14px;border-radius:14px;
@@ -159,29 +171,39 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   color:#dce8f8;font-size:13px;line-height:1.9;
   max-width:90%;
 }
+.message-wrap{margin:13px 0;max-width:90%}
+.message-wrap.user-wrap{margin-left:auto}
 .message{
   padding:12px 14px;border-radius:14px;
-  margin:12px 0;font-size:13px;line-height:1.8;
-  max-width:88%;overflow-wrap:anywhere;
-  white-space:pre-wrap;
+  font-size:13px;line-height:1.8;
+  overflow-wrap:anywhere;white-space:pre-wrap;
 }
 .user-message{
-  margin-left:auto;
-  background:linear-gradient(135deg,#17617a,#34417b);
+  margin-left:auto;background:linear-gradient(135deg,#17617a,#34417b);
   color:white;border-bottom-right-radius:4px;
 }
 .ai-message{
-  margin-right:auto;
-  background:#14243a;color:#dce8f8;
-  border:1px solid var(--border);
-  border-bottom-left-radius:4px;
+  margin-right:auto;background:#14243a;color:#dce8f8;
+  border:1px solid var(--border);border-bottom-left-radius:4px;
 }
-.ai-message.error{
-  border-color:#ff777755;
+.ai-message.error{border-color:#ff777755}
+.message-meta{
+  display:flex;align-items:center;gap:8px;
+  margin-top:5px;padding:0 4px;
+  color:var(--muted);font-size:9px;
 }
-.chat-input-area{
-  display:flex;gap:9px;margin-top:13px;
+.user-wrap .message-meta{justify-content:flex-end}
+.message-action{
+  border:0;background:none;color:var(--cyan);
+  font-size:10px;padding:3px 0;
 }
+.retry-button{
+  border:1px solid #ff777755;background:#2b1720;
+  color:#ffaaaa;padding:6px 9px;border-radius:8px;
+  font-size:10px;margin-top:7px;
+}
+.chat-input-area{margin-top:13px}
+.input-row{display:flex;gap:9px}
 #aiInput{
   min-width:0;flex:1;padding:14px;
   border-radius:13px;border:1px solid var(--border);
@@ -193,14 +215,36 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   background:linear-gradient(110deg,var(--cyan),#9c91ff);
   color:#07111e;font-weight:900;
 }
+#stopAI{
+  display:none;border:1px solid #ff777755;border-radius:12px;
+  padding:10px 13px;background:#2b1720;color:#ffaaaa;
+  margin-top:9px;font-size:11px;
+}
+.input-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:8px;margin-top:8px;color:var(--muted);font-size:10px;
+}
+#charCount{font-variant-numeric:tabular-nums}
 .ai-hint{
   text-align:center;color:var(--muted);
-  font-size:10px;margin-top:12px;line-height:1.7;
+  font-size:10px;margin-top:12px;line-height:1.8;
+}
+.empty-history{
+  text-align:center;color:var(--muted);
+  font-size:11px;padding:15px;
 }
 @media(max-width:380px){
- h1{font-size:29px}
- .app{padding-left:14px;padding-right:14px}
+  h1{font-size:29px}
+  .app{padding-left:14px;padding-right:14px}
+  .clear-button{font-size:10px;padding:9px}
 }
+[dir="rtl"]{font-family:Arial,sans-serif}
+[dir="rtl"] .hero:after{right:auto;left:-80px}
+[dir="rtl"] .user-message{border-bottom-right-radius:14px;border-bottom-left-radius:4px}
+[dir="rtl"] .ai-message{border-bottom-left-radius:14px;border-bottom-right-radius:4px}
+[dir="rtl"] .message-wrap.user-wrap{margin-left:0;margin-right:auto}
+[dir="rtl"] .user-wrap .message-meta{justify-content:flex-start}
+[dir="rtl"] .user-message{margin-left:0;margin-right:auto}
 </style>
 </head>
 
@@ -215,11 +259,10 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
       <div class="brand-sub">NEXT GENERATION</div>
     </div>
   </div>
-  <button class="lang" id="langBtn" onclick="toggleLanguage()">🌐 EN</button>
+  <button class="lang" id="langBtn" type="button">🌐 EN</button>
 </header>
 
 <main id="homeView">
-
   <section class="hero">
     <div class="eyebrow" data-en="WELCOME TO THE FUTURE" data-fa="به آینده خوش آمدید">WELCOME TO THE FUTURE</div>
     <h1 data-en="Beyond the <span class='gradient'>Ordinary.</span>" data-fa="فراتر از <span class='gradient'>معمولی.</span>">Beyond the <span class="gradient">Ordinary.</span></h1>
@@ -227,7 +270,7 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
        data-fa="دنیای هوشمندتر دیجیتال را کشف کنید. فناوری، خلاقیت و امکانات تازه را در یک مکان تجربه کنید.">
        Discover a smarter digital world. Explore technology, creativity and new possibilities in one place.
     </p>
-    <button class="hero-button" onclick="showAI()"
+    <button class="hero-button" type="button" onclick="showAI()"
       data-en="Explore NEXORA →" data-fa="کاوش در NEXORA ←">Explore NEXORA →</button>
   </section>
 
@@ -237,33 +280,28 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
   </div>
 
   <section class="grid">
-
     <div class="card" onclick="showAI()">
       <div class="card-icon">✦</div>
       <h3>NEX AI</h3>
-      <p data-en="Your intelligent digital assistant."
-         data-fa="دستیار هوشمند دیجیتال شما.">Your intelligent digital assistant.</p>
+      <p data-en="Your intelligent digital assistant." data-fa="دستیار هوشمند دیجیتال شما.">Your intelligent digital assistant.</p>
     </div>
 
     <div class="card" onclick="showMessage('NEX Studio — Coming Soon')">
       <div class="card-icon">◈</div>
       <h3>NEX Studio</h3>
-      <p data-en="A space for creativity and ideas."
-         data-fa="فضایی برای خلاقیت و ایده‌ها.">A space for creativity and ideas.</p>
+      <p data-en="A space for creativity and ideas." data-fa="فضایی برای خلاقیت و ایده‌ها.">A space for creativity and ideas.</p>
     </div>
 
     <div class="card" onclick="showMessage('NEX Tools — Coming Soon')">
       <div class="card-icon">⌘</div>
       <h3>NEX Tools</h3>
-      <p data-en="Useful tools for everyday digital life."
-         data-fa="ابزارهای کاربردی برای زندگی دیجیتال.">Useful tools for everyday digital life.</p>
+      <p data-en="Useful tools for everyday digital life." data-fa="ابزارهای کاربردی برای زندگی دیجیتال.">Useful tools for everyday digital life.</p>
     </div>
 
     <div class="card" onclick="showMessage('NEX Learn — Coming Soon')">
       <div class="card-icon">◎</div>
       <h3>NEX Learn</h3>
-      <p data-en="Discover knowledge and learn new skills."
-         data-fa="دانش را کشف کنید و مهارت‌های تازه بیاموزید.">Discover knowledge and learn new skills.</p>
+      <p data-en="Discover knowledge and learn new skills." data-fa="دانش را کشف کنید و مهارت‌های تازه بیاموزید.">Discover knowledge and learn new skills.</p>
     </div>
 
     <div class="card wide" onclick="showMessage('NEX Space — Coming Soon')">
@@ -274,7 +312,6 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
            data-fa="فضای شخصی شما در جهان NEXORA.">Your personal space in the NEXORA universe.</p>
       </div>
     </div>
-
   </section>
 
   <section class="notice">
@@ -284,250 +321,524 @@ h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
       One Platform. Endless Possibilities. New features are being developed.
     </span>
   </section>
-
 </main>
 
 <section id="aiView">
-
-  <button class="back-button" onclick="closeAI()"
-    data-en="← Back to Home" data-fa="→ بازگشت به خانه">
-    ← Back to Home
-  </button>
+  <button class="back-button" type="button" onclick="closeAI()"
+    data-en="← Back to Home" data-fa="→ بازگشت به خانه">← Back to Home</button>
 
   <div class="ai-heading">
     <div class="ai-symbol">✦</div>
     <div>
       <h2>NEX AI</h2>
-      <p data-en="YOUR INTELLIGENT ASSISTANT"
-         data-fa="دستیار هوشمند شما">YOUR INTELLIGENT ASSISTANT</p>
+      <p data-en="YOUR INTELLIGENT ASSISTANT" data-fa="دستیار هوشمند شما">YOUR INTELLIGENT ASSISTANT</p>
     </div>
   </div>
 
-  <div class="ai-status">
-    <strong>● NEX AI</strong><br>
-    <span data-en="Chat server connected. AI provider setup is still required."
-      data-fa="سرور چت متصل است. برای پاسخ‌های هوشمند، اتصال مدل هوش مصنوعی هنوز لازم است.">
-      Chat server connected. AI provider setup is still required.
-    </span>
+  <div class="ai-toolbar">
+    <div class="ai-status" aria-live="polite">
+      <strong>● NEX AI</strong><br>
+      <span id="connectionStatus">AI engine is awaiting setup.</span>
+    </div>
+    <button class="clear-button" id="clearChat" type="button"
+      data-en="Clear chat" data-fa="پاک‌کردن گفتگو">Clear chat</button>
   </div>
 
-  <div class="chat-box" id="chatBox">
-    <div class="welcome-message"
-      data-en="Hello! Welcome to NEX AI. Send a message to test the connection."
-      data-fa="سلام! به NEX AI خوش آمدید. برای آزمایش اتصال، پیام خود را بنویسید.">
-      Hello! Welcome to NEX AI. Send a message to test the connection.
+  <div class="chat-box" id="chatBox" aria-live="polite">
+    <div class="welcome-message" id="welcomeMessage">
+      Hello! Welcome to NEX AI. Send a message to begin.
     </div>
   </div>
 
   <form class="chat-input-area" id="chatForm">
-    <input id="aiInput" type="text" autocomplete="off"
-      maxlength="1000"
-      placeholder="Type your message..."
-      aria-label="Message">
-    <button id="sendAI" type="submit">➤</button>
+    <div class="input-row">
+      <input id="aiInput" type="text" autocomplete="off"
+        maxlength="1000" placeholder="Type your message..."
+        aria-label="Message">
+      <button id="sendAI" type="submit" aria-label="Send message">➤</button>
+    </div>
+    <div class="input-footer">
+      <span id="inputHint">Press Enter to send</span>
+      <span id="charCount">0 / 1000</span>
+    </div>
+    <button id="stopAI" type="button">■ Stop request</button>
   </form>
 
   <div class="ai-hint"
-    data-en="NEX AI • Connected to the NEXORA server"
-    data-fa="NEX AI • متصل به سرور NEXORA">
-    NEX AI • Connected to the NEXORA server
+    data-en="NEX AI • Your messages remain in this browser session only."
+    data-fa="NEX AI • پیام‌های شما فقط در همین نشست مرورگر نگهداری می‌شوند.">
+    NEX AI • Your messages remain in this browser session only.
   </div>
-
 </section>
 
 </div>
 
 <div class="bottom">
   <nav class="nav">
-    <button class="active" onclick="closeAI()">
+    <button class="active" type="button" onclick="closeAI()">
       <b>⌂</b><span data-en="Home" data-fa="خانه">Home</span>
     </button>
-    <button onclick="showMessage('Explore — Coming Soon')">
+    <button type="button" onclick="showMessage('Explore — Coming Soon')">
       <b>◈</b><span data-en="Explore" data-fa="کاوش">Explore</span>
     </button>
-    <button onclick="showMessage('Services — Coming Soon')">
+    <button type="button" onclick="showMessage('Services — Coming Soon')">
       <b>✦</b><span data-en="Services" data-fa="خدمات">Services</span>
     </button>
-    <button onclick="showMessage('Profile — Coming Soon')">
+    <button type="button" onclick="showMessage('Profile — Coming Soon')">
       <b>◎</b><span data-en="Profile" data-fa="حساب">Profile</span>
     </button>
   </nav>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
+"use strict";
+
+const API_URL = "https://nexora-platform-description.vercel.app/api/chat";
+const MAX_MESSAGE_LENGTH = 1000;
+const MAX_HISTORY_MESSAGES = 20;
+const REQUEST_TIMEOUT = 45000;
+
 const tg = window.Telegram?.WebApp;
 
-if(tg){
+if (tg) {
   tg.ready();
   tg.expand();
-  tg.setHeaderColor('#080D19');
-  tg.setBackgroundColor('#080D19');
+  tg.setHeaderColor("#080D19");
+  tg.setBackgroundColor("#080D19");
 }
 
-let language = 'en';
+let language = "en";
 let isSending = false;
+let activeController = null;
+let conversation = [];
+let lastFailedMessage = null;
 
-function toggleLanguage(){
-  language = language === 'en' ? 'fa' : 'en';
+const elements = {
+  home: document.getElementById("homeView"),
+  ai: document.getElementById("aiView"),
+  chat: document.getElementById("chatBox"),
+  form: document.getElementById("chatForm"),
+  input: document.getElementById("aiInput"),
+  send: document.getElementById("sendAI"),
+  stop: document.getElementById("stopAI"),
+  clear: document.getElementById("clearChat"),
+  count: document.getElementById("charCount"),
+  status: document.getElementById("connectionStatus"),
+  welcome: document.getElementById("welcomeMessage"),
+  toast: document.getElementById("toast")
+};
+
+const translations = {
+  en: {
+    welcome: "Hello! Welcome to NEX AI. Send a message to begin.",
+    placeholder: "Type your message...",
+    send: "Send",
+    sending: "Sending...",
+    connecting: "Connecting to NEXORA server...",
+    ready: "Server is available. AI engine setup is still required.",
+    setup: "The server is running, but an AI engine has not been connected yet.",
+    network: "Could not connect to the server. Check your internet connection and try again.",
+    server: "The server could not process your request.",
+    unreadable: "The server returned an unreadable response.",
+    tooLong: "Your message must not exceed 1000 characters.",
+    empty: "Please enter a message first.",
+    retry: "↻ Retry",
+    copy: "Copy",
+    copied: "Copied.",
+    failed: "Request failed. You can try again.",
+    stopped: "Request cancelled.",
+    stop: "■ Stop request",
+    stoppedButton: "Stopping...",
+    clearConfirm: "Clear the entire conversation?",
+    cleared: "Conversation cleared.",
+    inputHint: "Press Enter to send",
+    historyLimit: "The conversation is too long. Start a new chat.",
+    timeout: "The request took too long. Please try again.",
+    serverBusy: "The server is temporarily unavailable. Please try again later."
+  },
+  fa: {
+    welcome: "سلام! به NEX AI خوش آمدید. پیام خود را بنویسید.",
+    placeholder: "پیام خود را بنویسید...",
+    send: "ارسال",
+    sending: "در حال ارسال...",
+    connecting: "در حال اتصال به سرور NEXORA...",
+    ready: "سرور در دسترس است؛ اتصال موتور هوش مصنوعی هنوز لازم است.",
+    setup: "سرور فعال است، اما هنوز موتور هوش مصنوعی به آن وصل نشده است.",
+    network: "ارتباط با سرور برقرار نشد. اینترنت را بررسی و دوباره تلاش کنید.",
+    server: "سرور نتوانست درخواست شما را پردازش کند.",
+    unreadable: "پاسخ سرور قابل خواندن نیست.",
+    tooLong: "پیام نباید بیشتر از ۱۰۰۰ حرف باشد.",
+    empty: "لطفاً ابتدا پیام خود را بنویسید.",
+    retry: "↻ تلاش دوباره",
+    copy: "کپی",
+    copied: "کپی شد.",
+    failed: "درخواست ناموفق بود. می‌توانید دوباره تلاش کنید.",
+    stopped: "درخواست متوقف شد.",
+    stop: "■ توقف درخواست",
+    stoppedButton: "در حال توقف...",
+    clearConfirm: "تمام گفت‌وگو پاک شود؟",
+    cleared: "گفت‌وگو پاک شد.",
+    inputHint: "برای ارسال Enter را بزنید",
+    historyLimit: "گفت‌وگو بیش از حد طولانی شده است. گفت‌وگوی تازه‌ای آغاز کنید.",
+    timeout: "زمان پاسخ‌گویی تمام شد. دوباره تلاش کنید.",
+    serverBusy: "سرور موقتاً در دسترس نیست. بعداً دوباره تلاش کنید."
+  }
+};
+
+function t(key) {
+  return translations[language][key] || key;
+}
+
+function toggleLanguage() {
+  language = language === "en" ? "fa" : "en";
 
   document.documentElement.lang = language;
-  document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
+  document.documentElement.dir = language === "fa" ? "rtl" : "ltr";
 
-  document.getElementById('langBtn').textContent =
-    language === 'fa' ? '🌐 فارسی' : '🌐 EN';
+  document.getElementById("langBtn").textContent =
+    language === "fa" ? "🌐 فارسی" : "🌐 EN";
 
-  document.querySelectorAll('[data-en]').forEach(el=>{
+  document.querySelectorAll("[data-en]").forEach(el => {
     el.innerHTML = el.dataset[language];
   });
 
-  document.getElementById('aiInput').placeholder =
-    language === 'fa' ? 'پیام خود را بنویسید...' : 'Type your message...';
+  elements.input.placeholder = t("placeholder");
+  document.getElementById("inputHint").textContent = t("inputHint");
+  elements.stop.textContent = t("stop");
+  elements.welcome.textContent = t("welcome");
+
+  updateCount();
+  updateStatus();
 }
 
-function showMessage(message){
-  const toast = document.getElementById('toast');
-  toast.textContent = message;
-  toast.style.display = 'block';
+function showMessage(message) {
+  elements.toast.textContent = message;
+  elements.toast.style.display = "block";
 
   clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(()=>{
-    toast.style.display = 'none';
-  },2500);
+  window.toastTimer = setTimeout(() => {
+    elements.toast.style.display = "none";
+  }, 2600);
 }
 
-function showAI(){
-  document.getElementById('homeView').style.display = 'none';
-  document.getElementById('aiView').style.display = 'block';
-  window.scrollTo(0,0);
+function showAI() {
+  elements.home.style.display = "none";
+  elements.ai.style.display = "block";
+  window.scrollTo(0, 0);
+  elements.input.focus();
 }
 
-function closeAI(){
-  document.getElementById('aiView').style.display = 'none';
-  document.getElementById('homeView').style.display = 'block';
-  window.scrollTo(0,0);
+function closeAI() {
+  elements.ai.style.display = "none";
+  elements.home.style.display = "block";
+  window.scrollTo(0, 0);
 }
 
-function addMessage(text, type){
-  const chatBox = document.getElementById('chatBox');
-  const message = document.createElement('div');
-
-  message.className = 'message ' + type;
-  message.textContent = text;
-
-  chatBox.appendChild(message);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  return message;
+function updateCount() {
+  elements.count.textContent =
+    elements.input.value.length + " / " + MAX_MESSAGE_LENGTH;
 }
 
-function getServerError(data){
-  if(data && data.status === 'setup_required'){
-    return language === 'fa'
-      ? 'سرور فعال است، اما هنوز مدل هوش مصنوعی به آن متصل نشده است.'
-      : 'The server is running, but an AI provider has not been connected yet.';
+function updateStatus(message) {
+  elements.status.textContent = message || t("ready");
+}
+
+function timeLabel() {
+  return new Intl.DateTimeFormat(
+    language === "fa" ? "fa-IR" : "en-US",
+    { hour: "2-digit", minute: "2-digit" }
+  ).format(new Date());
+}
+
+function scrollChat() {
+  elements.chat.scrollTop = elements.chat.scrollHeight;
+}
+
+function makeMessage(text, type, options = {}) {
+  const wrap = document.createElement("div");
+  wrap.className = "message-wrap " +
+    (type === "user-message" ? "user-wrap" : "ai-wrap");
+
+  const bubble = document.createElement("div");
+  bubble.className = "message " + type;
+  bubble.textContent = text;
+
+  wrap.appendChild(bubble);
+
+  const meta = document.createElement("div");
+  meta.className = "message-meta";
+
+  const time = document.createElement("span");
+  time.textContent = timeLabel();
+  meta.appendChild(time);
+
+  if (type === "ai-message" && !options.loading) {
+    const copy = document.createElement("button");
+    copy.className = "message-action";
+    copy.type = "button";
+    copy.textContent = t("copy");
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showMessage(t("copied"));
+      } catch {
+        showMessage(language === "fa"
+          ? "کپی در این مرورگر پشتیبانی نمی‌شود."
+          : "Copy is not supported in this browser.");
+      }
+    });
+    meta.appendChild(copy);
   }
 
-  return data?.error || (
-    language === 'fa'
-      ? 'در دریافت پاسخ از سرور مشکلی رخ داد.'
-      : 'The server could not process your request.'
-  );
+  wrap.appendChild(meta);
+
+  if (options.retry) {
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "retry-button";
+    retry.textContent = t("retry");
+    retry.addEventListener("click", () => {
+      if (lastFailedMessage) sendMessage(lastFailedMessage);
+    });
+    wrap.appendChild(retry);
+  }
+
+  elements.chat.appendChild(wrap);
+  scrollChat();
+
+  return { wrap, bubble, meta };
 }
 
-async function sendAIMessage(event){
-  event.preventDefault();
+function addWelcome() {
+  elements.chat.innerHTML = "";
+  const welcome = document.createElement("div");
+  welcome.className = "welcome-message";
+  welcome.textContent = t("welcome");
+  elements.chat.appendChild(welcome);
+}
 
-  if(isSending) return;
+function setSending(value) {
+  isSending = value;
+  elements.send.disabled = value;
+  elements.input.disabled = value;
+  elements.clear.disabled = value;
+  elements.stop.style.display = value ? "inline-block" : "none";
+  elements.send.textContent = value ? "…" : "➤";
+  if (!value) elements.input.focus();
+}
 
-  const input = document.getElementById('aiInput');
-  const sendButton = document.getElementById('sendAI');
-  const message = input.value.trim();
+function safeServerMessage(data, status) {
+  if (data?.status === "setup_required") return t("setup");
+  if (status === 429) return t("serverBusy");
+  if (status >= 500) return t("server");
+  if (status === 400) return data?.error || t("failed");
+  return t("server");
+}
 
-  if(!message) return;
+async function sendMessage(rawMessage) {
+  if (isSending) return;
 
-  if(message.length > 1000){
-    addMessage(
-      language === 'fa'
-        ? 'پیام نباید بیشتر از ۱۰۰۰ حرف باشد.'
-        : 'Message must not exceed 1000 characters.',
-      'ai-message error'
-    );
+  const message = String(rawMessage || "").trim();
+
+  if (!message) {
+    showMessage(t("empty"));
     return;
   }
 
-  isSending = true;
-  sendButton.disabled = true;
-  input.disabled = true;
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    showMessage(t("tooLong"));
+    return;
+  }
 
-  addMessage(message, 'user-message');
-  input.value = '';
+  if (conversation.length >= MAX_HISTORY_MESSAGES) {
+    showMessage(t("historyLimit"));
+    return;
+  }
 
-  const loadingMessage = addMessage(
-    language === 'fa' ? 'در حال ارتباط با سرور...' : 'Connecting to server...',
-    'ai-message'
+  lastFailedMessage = null;
+  setSending(true);
+  updateStatus(t("connecting"));
+
+  makeMessage(message, "user-message");
+  conversation.push({ role: "user", content: message });
+
+  if (conversation.length > MAX_HISTORY_MESSAGES) {
+    conversation = conversation.slice(-MAX_HISTORY_MESSAGES);
+  }
+
+  elements.input.value = "";
+  updateCount();
+
+  const loading = makeMessage(
+    t("sending"),
+    "ai-message",
+    { loading: true }
   );
 
-  try{
-    const response = await fetch('https://nexora-platform-description.vercel.app/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message })
+  activeController = new AbortController();
+
+  let timedOut = false;
+  const timeoutId = setTimeout(() => {
+    timedOut = true;
+    activeController?.abort();
+  }, REQUEST_TIMEOUT);
+
+  try {
+    const history = conversation.slice(0, -1).slice(-10);
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message,
+        history
+      }),
+      signal: activeController.signal,
+      cache: "no-store"
     });
 
-    let data = {};
+    let data;
 
-    try{
+    try {
       data = await response.json();
-    }catch{
-      throw new Error(
-        language === 'fa'
-          ? 'پاسخ سرور قابل خواندن نیست.'
-          : 'The server returned an unreadable response.'
-      );
+    } catch {
+      throw new Error("UNREADABLE_RESPONSE");
     }
 
-    if(!response.ok){
-      loadingMessage.textContent = getServerError(data);
-      loadingMessage.classList.add('error');
-    }else{
-      loadingMessage.textContent =
-        data.reply || (
-          language === 'fa'
-            ? 'سرور پاسخ دریافت کرد، اما متن پاسخی ارسال نکرد.'
-            : 'The server received your message but returned no reply.'
-        );
+    if (!response.ok) {
+      loading.bubble.textContent = safeServerMessage(data, response.status);
+      loading.bubble.classList.add("error");
+      lastFailedMessage = message;
+
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "retry-button";
+      retry.textContent = t("retry");
+      retry.addEventListener("click", () => {
+        if (lastFailedMessage) sendMessage(lastFailedMessage);
+      });
+      loading.wrap.appendChild(retry);
+
+      updateStatus(t("ready"));
+      return;
     }
 
-  }catch(error){
-    loadingMessage.textContent =
-      language === 'fa'
-        ? 'ارتباط با سرور برقرار نشد. اتصال اینترنت یا وضعیت سرور را بررسی کنید.'
-        : 'Could not connect to the server. Please check your internet connection or server status.';
+    if (typeof data.reply !== "string" || !data.reply.trim()) {
+      loading.bubble.textContent = t("server");
+      loading.bubble.classList.add("error");
+      lastFailedMessage = message;
+      updateStatus(t("ready"));
+      return;
+    }
 
-    loadingMessage.classList.add('error');
-    console.error('NEX AI request error:', error);
+    loading.bubble.textContent = data.reply;
+    loading.meta.innerHTML = "";
 
-  }finally{
-    isSending = false;
-    sendButton.disabled = false;
-    input.disabled = false;
-    input.focus();
+    const time = document.createElement("span");
+    time.textContent = timeLabel();
+    loading.meta.appendChild(time);
 
-    const chatBox = document.getElementById('chatBox');
-    chatBox.scrollTop = chatBox.scrollHeight;
+    const copy = document.createElement("button");
+    copy.type = "button";
+    copy.className = "message-action";
+    copy.textContent = t("copy");
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(data.reply);
+        showMessage(t("copied"));
+      } catch {
+        showMessage(t("failed"));
+      }
+    });
+    loading.meta.appendChild(copy);
+
+    conversation.push({ role: "assistant", content: data.reply });
+    updateStatus(t("ready"));
+
+  } catch (error) {
+    if (error.name === "AbortError") {
+      loading.bubble.textContent = timedOut ? t("timeout") : t("stopped");
+    } else if (error.message === "UNREADABLE_RESPONSE") {
+      loading.bubble.textContent = t("unreadable");
+    } else {
+      loading.bubble.textContent = t("network");
+    }
+
+    loading.bubble.classList.add("error");
+
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "retry-button";
+    retry.textContent = t("retry");
+    retry.addEventListener("click", () => {
+      if (lastFailedMessage) sendMessage(lastFailedMessage);
+    });
+    loading.wrap.appendChild(retry);
+
+    lastFailedMessage = message;
+    updateStatus(t("failed"));
+    console.error("NEX AI request failed:", error);
+
+  } finally {
+    clearTimeout(timeoutId);
+    activeController = null;
+    setSending(false);
+    scrollChat();
   }
 }
 
-document.getElementById('chatForm').addEventListener(
-  'submit',
-  sendAIMessage
-);
-</script>
+function stopRequest() {
+  if (activeController) {
+    elements.stop.disabled = true;
+    elements.stop.textContent = t("stoppedButton");
+    activeController.abort();
+    setTimeout(() => {
+      elements.stop.disabled = false;
+      elements.stop.textContent = t("stop");
+    }, 500);
+  }
+}
 
+function clearConversation() {
+  if (isSending) {
+    showMessage(language === "fa"
+      ? "ابتدا درخواست جاری را متوقف کنید."
+      : "Stop the current request first.");
+    return;
+  }
+
+  if (!confirm(t("clearConfirm"))) return;
+
+  conversation = [];
+  lastFailedMessage = null;
+  addWelcome();
+  updateStatus(t("ready"));
+  showMessage(t("cleared"));
+}
+
+elements.form.addEventListener("submit", event => {
+  event.preventDefault();
+  sendMessage(elements.input.value);
+});
+
+elements.input.addEventListener("input", updateCount);
+
+elements.input.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    elements.form.requestSubmit();
+  }
+});
+
+elements.clear.addEventListener("click", clearConversation);
+elements.stop.addEventListener("click", stopRequest);
+document.getElementById("langBtn").addEventListener("click", toggleLanguage);
+
+addWelcome();
+updateCount();
+updateStatus();
+</script>
 </body>
 </html>
