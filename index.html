@@ -9,147 +9,189 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-:root{
- --bg:#080D19;--panel:#101a2b;--panel2:#14243a;
- --cyan:#20c8f5;--purple:#855bfa;
- --text:#f4f7ff;--muted:#91a1b9;
- --border:rgba(255,255,255,.08);
+:root {
+  --bg:#080D19;
+  --panel:#101a2b;
+  --panel2:#14243a;
+  --cyan:#20c8f5;
+  --purple:#855bfa;
+  --text:#f4f7ff;
+  --muted:#91a1b9;
+  --border:rgba(255,255,255,.08);
 }
 *{box-sizing:border-box}
 body{
- margin:0;
- background:
- radial-gradient(ellipse at 85% 0%,rgba(32,200,245,.13),transparent 35%),
- radial-gradient(ellipse at 0% 35%,rgba(133,91,250,.10),transparent 35%),
- var(--bg);
- color:var(--text);font-family:Arial,sans-serif;min-height:100vh;
+  margin:0;
+  background:
+    radial-gradient(ellipse at 85% 0%,rgba(32,200,245,.13),transparent 35%),
+    radial-gradient(ellipse at 0% 35%,rgba(133,91,250,.10),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
 }
-button,textarea,input,select{font:inherit}
+button,input{font:inherit}
 button{cursor:pointer}
-.app{max-width:650px;margin:auto;padding:22px 18px 110px}
+.app{max-width:650px;margin:auto;padding:22px 18px 105px}
 header{display:flex;justify-content:space-between;align-items:center}
 .brand{display:flex;align-items:center;gap:11px}
 .logo{
- width:45px;height:45px;border-radius:15px;display:grid;
- place-items:center;font-size:25px;font-weight:900;
- background:linear-gradient(135deg,var(--cyan),var(--purple));
- color:white;box-shadow:0 0 25px #20c8f540;
+  width:45px;height:45px;border-radius:15px;
+  display:grid;place-items:center;font-size:25px;font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:white;box-shadow:0 0 25px #20c8f540;
 }
 .brand-name{font-size:19px;font-weight:900;letter-spacing:2px}
 .brand-sub{font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
-.lang,.back{
- border:1px solid var(--border);background:var(--panel);
- color:white;border-radius:12px;padding:10px 13px;
+.lang{
+  border:1px solid var(--border);background:var(--panel);
+  color:white;border-radius:12px;padding:10px 13px;
 }
 .hero{
- margin-top:30px;padding:28px 22px;border-radius:25px;
- background:linear-gradient(135deg,#142c43,#171b38 70%,#202044);
- border:1px solid #ffffff13;position:relative;overflow:hidden;
+  margin-top:30px;padding:28px 22px;border-radius:25px;
+  background:linear-gradient(135deg,#142c43,#171b38 70%,#202044);
+  border:1px solid #ffffff13;position:relative;overflow:hidden;
 }
 .hero:after{
- content:"";position:absolute;width:180px;height:180px;
- border:1px solid #20c8f544;border-radius:50%;
- right:-80px;top:-65px;
- box-shadow:0 0 0 20px #20c8f510,0 0 0 42px #20c8f508;
+  content:"";position:absolute;width:180px;height:180px;
+  border:1px solid #20c8f544;border-radius:50%;
+  right:-80px;top:-65px;box-shadow:0 0 0 20px #20c8f510,0 0 0 42px #20c8f508;
 }
 .eyebrow{font-size:10px;letter-spacing:3px;color:var(--cyan);font-weight:bold}
 h1{font-size:35px;line-height:1.15;margin:15px 0 10px;letter-spacing:-1px}
 .gradient{
- background:linear-gradient(90deg,#20c8f5,#a18aff);
- -webkit-background-clip:text;background-clip:text;color:transparent;
+  background:linear-gradient(90deg,#20c8f5,#a18aff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero p{color:#b6c4d8;font-size:13px;line-height:1.9;max-width:340px}
-.primary{
- border:0;border-radius:12px;padding:13px 18px;margin-top:12px;
- color:#07111e;font-weight:800;
- background:linear-gradient(100deg,var(--cyan),#9c91ff);
+.hero-button{
+  border:0;border-radius:12px;padding:13px 18px;margin-top:12px;
+  color:#07111e;font-weight:800;
+  background:linear-gradient(100deg,var(--cyan),#9c91ff);
 }
 .section-title{
- display:flex;justify-content:space-between;align-items:center;
- margin:30px 2px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  margin:30px 2px 14px;
 }
 .section-title h2{font-size:17px;margin:0}
 .section-title span{font-size:10px;color:var(--muted);letter-spacing:1px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{
- background:linear-gradient(145deg,#14243a,#0e1728);
- border:1px solid var(--border);border-radius:18px;
- padding:17px 15px;min-height:145px;cursor:pointer;
- transition:.2s;
+  background:linear-gradient(145deg,#14243a,#0e1728);
+  border:1px solid var(--border);border-radius:18px;
+  padding:17px 15px;min-height:145px;
+  transition:.2s;
 }
 .card:active{transform:scale(.98)}
 .card-icon{
- width:42px;height:42px;display:grid;place-items:center;
- border-radius:13px;background:#20c8f51a;font-size:22px;margin-bottom:13px;
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:13px;background:#20c8f51a;font-size:22px;
+  margin-bottom:13px;
 }
 .card h3{font-size:14px;margin:0 0 7px}
 .card p{font-size:11px;line-height:1.7;color:var(--muted);margin:0}
 .wide{grid-column:span 2;min-height:auto;display:flex;align-items:center;gap:15px}
 .wide .card-icon{margin:0;flex-shrink:0}
 .notice{
- margin-top:25px;padding:17px;border:1px solid var(--border);
- border-radius:16px;background:#101a2b;color:var(--muted);
- font-size:11px;line-height:1.8;
-}
-.screen{display:none}
-.screen.active{display:block}
-.tool-card{
- background:linear-gradient(145deg,#14243a,#0e1728);
- border:1px solid var(--border);border-radius:18px;
- padding:18px;margin-top:14px;
-}
-.tool-card h3{font-size:15px;margin:0 0 8px}
-.tool-card p{font-size:12px;color:var(--muted);line-height:1.7}
-textarea,.field,select{
- width:100%;background:#080f1d;color:white;
- border:1px solid #ffffff20;border-radius:12px;
- padding:13px;outline:none;margin-top:10px;
-}
-textarea{min-height:115px;resize:vertical}
-textarea:focus,.field:focus,select:focus{border-color:var(--cyan)}
-.action{
- border:0;border-radius:11px;padding:11px 15px;
- background:linear-gradient(100deg,var(--cyan),#9c91ff);
- color:#07111e;font-weight:bold;margin-top:10px;
-}
-.secondary{
- border:1px solid var(--border);border-radius:11px;
- padding:10px 13px;background:#17243a;color:white;margin:5px 4px 0 0;
-}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.stat{
- background:#080f1d;border:1px solid var(--border);
- padding:13px;border-radius:12px;
-}
-.stat strong{display:block;font-size:21px;color:var(--cyan)}
-.stat span{font-size:11px;color:var(--muted)}
-.result{
- color:var(--cyan);font-size:13px;margin-top:12px;
- overflow-wrap:anywhere;line-height:1.8;
+  margin-top:25px;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#101a2b;color:var(--muted);
+  font-size:11px;line-height:1.8;
 }
 .bottom{
- position:fixed;bottom:0;left:0;right:0;z-index:5;
- background:#080d19ed;backdrop-filter:blur(15px);
- border-top:1px solid var(--border);display:flex;justify-content:center;
+  position:fixed;bottom:0;left:0;right:0;z-index:5;
+  background:#080d19ed;backdrop-filter:blur(15px);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:center;
 }
-.nav{
- width:100%;max-width:650px;display:flex;justify-content:space-around;
- padding:12px 5px calc(12px + env(safe-area-inset-bottom));
-}
+.nav{width:100%;max-width:650px;display:flex;justify-content:space-around;padding:12px 5px calc(12px + env(safe-area-inset-bottom))}
 .nav button{
- background:none;border:0;color:var(--muted);font-size:10px;
- display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:none;border:0;color:var(--muted);
+  font-size:10px;display:flex;flex-direction:column;align-items:center;gap:5px;
 }
 .nav button b{font-size:20px;font-weight:400}
 .nav button.active{color:var(--cyan)}
 .toast{
- position:fixed;bottom:95px;left:50%;transform:translateX(-50%);
- background:#1c2c42;border:1px solid #20c8f555;color:white;
- padding:12px 17px;border-radius:12px;font-size:12px;
- display:none;z-index:10;width:max-content;max-width:90%;
+  position:fixed;bottom:95px;left:50%;transform:translateX(-50%);
+  background:#1c2c42;border:1px solid #20c8f555;
+  color:white;padding:12px 17px;border-radius:12px;
+  font-size:12px;display:none;z-index:10;
+  width:max-content;max-width:90%;
 }
 [dir="rtl"]{font-family:Arial,sans-serif}
 [dir="rtl"] .hero:after{right:auto;left:-80px}
+
+/* NEX AI PAGE */
+#aiView{display:none;margin-top:25px}
+.ai-heading{
+  display:flex;align-items:center;gap:13px;
+  padding:18px;border-radius:19px;
+  background:linear-gradient(135deg,#142c43,#171b38);
+  border:1px solid var(--border);
+}
+.ai-symbol{
+  width:48px;height:48px;border-radius:15px;
+  display:grid;place-items:center;font-size:25px;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+}
+.ai-heading h2{margin:0 0 5px;font-size:18px}
+.ai-heading p{margin:0;color:var(--muted);font-size:11px}
+.back-button{
+  margin:0 0 15px;padding:10px 14px;
+  border:1px solid var(--border);border-radius:11px;
+  background:var(--panel);color:var(--text);
+}
+.ai-status{
+  margin-top:15px;padding:13px;border-radius:13px;
+  background:#101a2b;border:1px solid var(--border);
+  color:var(--muted);font-size:11px;line-height:1.8;
+}
+.ai-status strong{color:var(--cyan)}
+.chat-box{
+  margin-top:16px;min-height:300px;max-height:48vh;
+  overflow-y:auto;padding:15px;
+  border:1px solid var(--border);border-radius:18px;
+  background:#0c1525;
+}
+.welcome-message{
+  padding:14px;border-radius:14px;
+  background:#14243a;border:1px solid #20c8f522;
+  color:#dce8f8;font-size:13px;line-height:1.9;
+  max-width:90%;
+}
+.message{
+  padding:12px 14px;border-radius:14px;
+  margin:12px 0;font-size:13px;line-height:1.8;
+  max-width:88%;overflow-wrap:anywhere;
+}
+.user-message{
+  margin-left:auto;
+  background:linear-gradient(135deg,#17617a,#34417b);
+  color:white;border-bottom-right-radius:4px;
+}
+.ai-message{
+  margin-right:auto;
+  background:#14243a;color:#dce8f8;
+  border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+.chat-input-area{
+  display:flex;gap:9px;margin-top:13px;
+}
+#aiInput{
+  min-width:0;flex:1;padding:14px;
+  border-radius:13px;border:1px solid var(--border);
+  background:#101a2b;color:white;outline:none;
+}
+#aiInput:focus{border-color:var(--cyan)}
+#sendAI{
+  border:0;border-radius:13px;padding:0 18px;
+  background:linear-gradient(110deg,var(--cyan),#9c91ff);
+  color:#07111e;font-weight:900;
+}
+.ai-hint{
+  text-align:center;color:var(--muted);
+  font-size:10px;margin-top:12px;line-height:1.7;
+}
 @media(max-width:380px){
  h1{font-size:29px}
  .app{padding-left:14px;padding-right:14px}
@@ -161,389 +203,234 @@ textarea:focus,.field:focus,select:focus{border-color:var(--cyan)}
 <div class="app">
 
 <header>
- <div class="brand">
-  <div class="logo">N</div>
-  <div>
-   <div class="brand-name">NEXORA</div>
-   <div class="brand-sub">NEXT GENERATION</div>
+  <div class="brand">
+    <div class="logo">N</div>
+    <div>
+      <div class="brand-name">NEXORA</div>
+      <div class="brand-sub">NEXT GENERATION</div>
+    </div>
   </div>
- </div>
- <button class="lang" id="langBtn" onclick="toggleLanguage()">🌐 EN</button>
+  <button class="lang" id="langBtn" onclick="toggleLanguage()">🌐 EN</button>
 </header>
 
-<!-- HOME SCREEN -->
-<main id="homeScreen" class="screen active">
+<main id="homeView">
 
- <section class="hero">
-  <div class="eyebrow" data-en="WELCOME TO THE FUTURE" data-fa="به آینده خوش آمدید">WELCOME TO THE FUTURE</div>
-  <h1 data-en="Beyond the <span class='gradient'>Ordinary.</span>" data-fa="فراتر از <span class='gradient'>معمولی.</span>">Beyond the <span class="gradient">Ordinary.</span></h1>
-  <p data-en="Discover a smarter digital world. Explore technology, creativity and new possibilities in one place."
-     data-fa="دنیای هوشمندتر دیجیتال را کشف کنید. فناوری، خلاقیت و امکانات تازه را در یک مکان تجربه کنید.">
-   Discover a smarter digital world. Explore technology, creativity and new possibilities in one place.
-  </p>
-  <button class="primary" onclick="openScreen('toolsScreen','tools')"
-   data-en="Explore NEXORA →" data-fa="کاوش در NEXORA ←">Explore NEXORA →</button>
- </section>
+  <section class="hero">
+    <div class="eyebrow" data-en="WELCOME TO THE FUTURE" data-fa="به آینده خوش آمدید">WELCOME TO THE FUTURE</div>
+    <h1 data-en="Beyond the <span class='gradient'>Ordinary.</span>" data-fa="فراتر از <span class='gradient'>معمولی.</span>">Beyond the <span class="gradient">Ordinary.</span></h1>
+    <p data-en="Discover a smarter digital world. Explore technology, creativity and new possibilities in one place."
+       data-fa="دنیای هوشمندتر دیجیتال را کشف کنید. فناوری، خلاقیت و امکانات تازه را در یک مکان تجربه کنید.">
+       Discover a smarter digital world. Explore technology, creativity and new possibilities in one place.
+    </p>
+    <button class="hero-button" onclick="showAI()"
+      data-en="Explore NEXORA →" data-fa="کاوش در NEXORA ←">Explore NEXORA →</button>
+  </section>
 
- <div class="section-title">
-  <h2 data-en="Explore Platform" data-fa="بخش‌های پلتفرم">Explore Platform</h2>
-  <span>DISCOVER MORE</span>
- </div>
-
- <section class="grid">
-
-  <div class="card" onclick="showMessage('NEX AI — Coming Soon')">
-   <div class="card-icon">✦</div>
-   <h3>NEX AI</h3>
-   <p data-en="Your intelligent digital assistant." data-fa="دستیار هوشمند دیجیتال شما.">Your intelligent digital assistant.</p>
+  <div class="section-title">
+    <h2 data-en="Explore Platform" data-fa="بخش‌های پلتفرم">Explore Platform</h2>
+    <span>DISCOVER MORE</span>
   </div>
 
-  <div class="card" onclick="showMessage('NEX Studio — Coming Soon')">
-   <div class="card-icon">◈</div>
-   <h3>NEX Studio</h3>
-   <p data-en="A space for creativity and ideas." data-fa="فضایی برای خلاقیت و ایده‌ها.">A space for creativity and ideas.</p>
-  </div>
+  <section class="grid">
 
-  <div class="card" onclick="openScreen('toolsScreen','tools')">
-   <div class="card-icon">⌘</div>
-   <h3>NEX Tools</h3>
-   <p data-en="Useful tools for everyday digital life." data-fa="ابزارهای کاربردی برای زندگی دیجیتال.">Useful tools for everyday digital life.</p>
-  </div>
+    <div class="card" onclick="showAI()">
+      <div class="card-icon">✦</div>
+      <h3>NEX AI</h3>
+      <p data-en="Your intelligent digital assistant."
+         data-fa="دستیار هوشمند دیجیتال شما.">Your intelligent digital assistant.</p>
+    </div>
 
-  <div class="card" onclick="showMessage('NEX Learn — Coming Soon')">
-   <div class="card-icon">◎</div>
-   <h3>NEX Learn</h3>
-   <p data-en="Discover knowledge and learn new skills." data-fa="دانش را کشف کنید و مهارت‌های تازه بیاموزید.">Discover knowledge and learn new skills.</p>
-  </div>
+    <div class="card" onclick="showMessage('NEX Studio — Coming Soon')">
+      <div class="card-icon">◈</div>
+      <h3>NEX Studio</h3>
+      <p data-en="A space for creativity and ideas."
+         data-fa="فضایی برای خلاقیت و ایده‌ها.">A space for creativity and ideas.</p>
+    </div>
 
-  <div class="card wide" onclick="showMessage('NEX Space — Coming Soon')">
-   <div class="card-icon">🌐</div>
-   <div>
-    <h3>NEX Space</h3>
-    <p data-en="Your personal space in the NEXORA universe." data-fa="فضای شخصی شما در جهان NEXORA.">Your personal space in the NEXORA universe.</p>
-   </div>
-  </div>
+    <div class="card" onclick="showMessage('NEX Tools — Coming Soon')">
+      <div class="card-icon">⌘</div>
+      <h3>NEX Tools</h3>
+      <p data-en="Useful tools for everyday digital life."
+         data-fa="ابزارهای کاربردی برای زندگی دیجیتال.">Useful tools for everyday digital life.</p>
+    </div>
 
- </section>
+    <div class="card" onclick="showMessage('NEX Learn — Coming Soon')">
+      <div class="card-icon">◎</div>
+      <h3>NEX Learn</h3>
+      <p data-en="Discover knowledge and learn new skills."
+         data-fa="دانش را کشف کنید و مهارت‌های تازه بیاموزید.">Discover knowledge and learn new skills.</p>
+    </div>
 
- <section class="notice">
-  <strong style="color:#20c8f5">✧ NEXORA VISION</strong><br>
-  <span data-en="One Platform. Endless Possibilities. New features are being developed."
-   data-fa="یک پلتفرم، بی‌نهایت امکانات. قابلیت‌های جدید در حال توسعه هستند.">
-   One Platform. Endless Possibilities. New features are being developed.
-  </span>
- </section>
+    <div class="card wide" onclick="showMessage('NEX Space — Coming Soon')">
+      <div class="card-icon">🌐</div>
+      <div>
+        <h3>NEX Space</h3>
+        <p data-en="Your personal space in the NEXORA universe."
+           data-fa="فضای شخصی شما در جهان NEXORA.">Your personal space in the NEXORA universe.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="notice">
+    <strong style="color:#20c8f5">✧ NEXORA VISION</strong><br>
+    <span data-en="One Platform. Endless Possibilities. New features are being developed."
+      data-fa="یک پلتفرم، بی‌نهایت امکانات. قابلیت‌های جدید در حال توسعه هستند.">
+      One Platform. Endless Possibilities. New features are being developed.
+    </span>
+  </section>
 
 </main>
 
-<!-- NEX TOOLS SCREEN -->
-<section id="toolsScreen" class="screen">
+<!-- NEX AI -->
+<section id="aiView">
 
- <div class="section-title">
-  <h2 data-en="NEX Tools" data-fa="ابزارهای NEX">NEX Tools</h2>
-  <span>SMART UTILITIES</span>
- </div>
+  <button class="back-button" onclick="closeAI()"
+    data-en="← Back to Home" data-fa="→ بازگشت به خانه">
+    ← Back to Home
+  </button>
 
- <p style="color:var(--muted);font-size:12px;line-height:1.8"
- data-en="Simple and useful tools for your everyday digital tasks."
- data-fa="ابزارهای ساده و کاربردی برای کارهای روزمرهٔ دیجیتال شما.">
- Simple and useful tools for your everyday digital tasks.
- </p>
-
- <!-- TEXT COUNTER -->
- <div class="tool-card">
-  <h3 data-en="✍️ Text Counter" data-fa="✍️ شمارشگر متن">✍️ Text Counter</h3>
-  <p data-en="Count words, characters and lines in your text."
-   data-fa="تعداد کلمات، حروف و سطرهای متن خود را بشمارید.">
-   Count words, characters and lines in your text.
-  </p>
-
-  <textarea id="counterText" oninput="countText()"
-   placeholder="Write or paste your text here..."></textarea>
-
-  <div class="stats">
-   <div class="stat"><strong id="wordCount">0</strong><span data-en="Words" data-fa="کلمات">Words</span></div>
-   <div class="stat"><strong id="charCount">0</strong><span data-en="Characters" data-fa="حروف">Characters</span></div>
-   <div class="stat"><strong id="lineCount">0</strong><span data-en="Lines" data-fa="سطرها">Lines</span></div>
-   <div class="stat"><strong id="noSpaceCount">0</strong><span data-en="Without spaces" data-fa="بدون فاصله">Without spaces</span></div>
+  <div class="ai-heading">
+    <div class="ai-symbol">✦</div>
+    <div>
+      <h2>NEX AI</h2>
+      <p data-en="YOUR INTELLIGENT ASSISTANT"
+         data-fa="دستیار هوشمند شما">YOUR INTELLIGENT ASSISTANT</p>
+    </div>
   </div>
 
-  <button class="secondary" onclick="clearCounter()"
-   data-en="Clear text" data-fa="پاک کردن متن">Clear text</button>
- </div>
-
- <!-- CASE CONVERTER -->
- <div class="tool-card">
-  <h3 data-en="🔠 Text Case Converter" data-fa="🔠 تبدیل حروف انگلیسی">🔠 Text Case Converter</h3>
-  <p data-en="Change English letters to uppercase or lowercase."
-   data-fa="حروف انگلیسی را به بزرگ یا کوچک تبدیل کنید.">
-   Change English letters to uppercase or lowercase.
-  </p>
-
-  <textarea id="caseText" placeholder="Enter English text..."></textarea>
-
-  <button class="action" onclick="convertCase('upper')"
-   data-en="UPPERCASE" data-fa="حروف بزرگ">UPPERCASE</button>
-
-  <button class="secondary" onclick="convertCase('lower')"
-   data-en="lowercase" data-fa="حروف کوچک">lowercase</button>
-
-  <button class="secondary" onclick="copyResult('caseText')"
-   data-en="Copy result" data-fa="کپی نتیجه">Copy result</button>
- </div>
-
- <!-- UNIT CONVERTER -->
- <div class="tool-card">
-  <h3 data-en="📐 Unit Converter" data-fa="📐 تبدیل واحد">📐 Unit Converter</h3>
-  <p data-en="Convert length, weight and temperature."
-   data-fa="واحدهای طول، وزن و دما را تبدیل کنید.">
-   Convert length, weight and temperature.
-  </p>
-
-  <label data-en="Category" data-fa="نوع تبدیل">Category</label>
-  <select id="unitCategory" onchange="updateUnits()">
-   <option value="length">Length / طول</option>
-   <option value="weight">Weight / وزن</option>
-   <option value="temperature">Temperature / دما</option>
-  </select>
-
-  <input class="field" id="unitValue" type="number"
-   placeholder="Enter a value" oninput="convertUnit()">
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-   <div>
-    <label data-en="From" data-fa="از">From</label>
-    <select id="unitFrom" onchange="convertUnit()"></select>
-   </div>
-   <div>
-    <label data-en="To" data-fa="به">To</label>
-    <select id="unitTo" onchange="convertUnit()"></select>
-   </div>
+  <div class="ai-status">
+    <strong>● NEX AI</strong><br>
+    <span data-en="The chat interface is ready. Smart AI responses will be enabled after connecting a secure AI server."
+      data-fa="رابط چت آماده است. پاسخ‌های واقعی هوش مصنوعی پس از اتصال سرور امن فعال خواهند شد.">
+      The chat interface is ready. Smart AI responses will be enabled after connecting a secure AI server.
+    </span>
   </div>
 
-  <div class="result" id="unitResult">Result: —</div>
- </div>
+  <div class="chat-box" id="chatBox">
+    <div class="welcome-message"
+      data-en="Hello! Welcome to NEX AI. I am your digital assistant. You can type a message below to test the chat interface."
+      data-fa="سلام! به NEX AI خوش آمدید. من دستیار دیجیتال شما هستم. برای آزمایش رابط چت، پیام خود را در پایین بنویسید.">
+      Hello! Welcome to NEX AI. I am your digital assistant. You can type a message below to test the chat interface.
+    </div>
+  </div>
+
+  <form class="chat-input-area" onsubmit="sendAIMessage(event)">
+    <input id="aiInput" type="text" autocomplete="off"
+      placeholder="Type your message..."
+      aria-label="Message">
+    <button id="sendAI" type="submit">➤</button>
+  </form>
+
+  <div class="ai-hint"
+    data-en="NEX AI preview • Real AI connection is not enabled yet."
+    data-fa="پیش‌نمایش NEX AI • اتصال واقعی هوش مصنوعی هنوز فعال نشده است.">
+    NEX AI preview • Real AI connection is not enabled yet.
+  </div>
 
 </section>
 
 </div>
 
-<!-- BOTTOM NAVIGATION -->
 <div class="bottom">
- <nav class="nav">
-
-  <button id="homeNav" class="active" onclick="openScreen('homeScreen','home')">
-   <b>⌂</b><span data-en="Home" data-fa="خانه">Home</span>
-  </button>
-
-  <button id="exploreNav" onclick="openScreen('toolsScreen','tools')">
-   <b>◈</b><span data-en="Explore" data-fa="کاوش">Explore</span>
-  </button>
-
-  <button id="toolsNav" onclick="openScreen('toolsScreen','tools')">
-   <b>✦</b><span data-en="Tools" data-fa="ابزارها">Tools</span>
-  </button>
-
-  <button onclick="showMessage('Profile — Coming Soon')">
-   <b>◎</b><span data-en="Profile" data-fa="حساب">Profile</span>
-  </button>
-
- </nav>
+  <nav class="nav">
+    <button class="active" onclick="closeAI()">
+      <b>⌂</b><span data-en="Home" data-fa="خانه">Home</span>
+    </button>
+    <button onclick="showMessage('Explore — Coming Soon')">
+      <b>◈</b><span data-en="Explore" data-fa="کاوش">Explore</span>
+    </button>
+    <button onclick="showMessage('Services — Coming Soon')">
+      <b>✦</b><span data-en="Services" data-fa="خدمات">Services</span>
+    </button>
+    <button onclick="showMessage('Profile — Coming Soon')">
+      <b>◎</b><span data-en="Profile" data-fa="حساب">Profile</span>
+    </button>
+  </nav>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const tg=window.Telegram?.WebApp;
+const tg = window.Telegram?.WebApp;
 
 if(tg){
- tg.ready();
- tg.expand();
- tg.setHeaderColor('#080D19');
- tg.setBackgroundColor('#080D19');
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#080D19');
+  tg.setBackgroundColor('#080D19');
 }
 
-let language='en';
+let language = 'en';
 
 function toggleLanguage(){
- language=language==='en'?'fa':'en';
+  language = language === 'en' ? 'fa' : 'en';
 
- document.documentElement.lang=language;
- document.documentElement.dir=language==='fa'?'rtl':'ltr';
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
 
- document.getElementById('langBtn').textContent=
-  language==='fa'?'🌐 فارسی':'🌐 EN';
+  document.getElementById('langBtn').textContent =
+    language === 'fa' ? '🌐 فارسی' : '🌐 EN';
 
- document.querySelectorAll('[data-en]').forEach(el=>{
-  el.innerHTML=el.dataset[language];
- });
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerHTML = el.dataset[language];
+  });
+
+  document.getElementById('aiInput').placeholder =
+    language === 'fa' ? 'پیام خود را بنویسید...' : 'Type your message...';
 }
 
 function showMessage(message){
- const toast=document.getElementById('toast');
- toast.textContent=message;
- toast.style.display='block';
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
 
- clearTimeout(window.toastTimer);
+  clearTimeout(window.toastTimer);
 
- window.toastTimer=setTimeout(()=>{
-  toast.style.display='none';
- },2500);
+  window.toastTimer = setTimeout(()=>{
+    toast.style.display = 'none';
+  },2500);
 }
 
-function openScreen(screenId,nav){
- document.querySelectorAll('.screen').forEach(s=>{
-  s.classList.remove('active');
- });
-
- document.getElementById(screenId).classList.add('active');
-
- document.querySelectorAll('.nav button').forEach(b=>{
-  b.classList.remove('active');
- });
-
- if(nav==='home'){
-  document.getElementById('homeNav').classList.add('active');
- }else{
-  document.getElementById('toolsNav').classList.add('active');
- }
-
- window.scrollTo({top:0,behavior:'smooth'});
+function showAI(){
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('aiView').style.display = 'block';
+  window.scrollTo(0,0);
 }
 
-/* TEXT COUNTER */
-function countText(){
- const text=document.getElementById('counterText').value;
- const words=text.trim()?text.trim().split(/\s+/u).length:0;
- const lines=text?text.split(/\n/).length:0;
-
- document.getElementById('wordCount').textContent=words;
- document.getElementById('charCount').textContent=[...text].length;
- document.getElementById('lineCount').textContent=lines;
- document.getElementById('noSpaceCount').textContent=
-  [...text.replace(/\s/g,'')].length;
+function closeAI(){
+  document.getElementById('aiView').style.display = 'none';
+  document.getElementById('homeView').style.display = 'block';
+  window.scrollTo(0,0);
 }
 
-function clearCounter(){
- document.getElementById('counterText').value='';
- countText();
+function sendAIMessage(event){
+  event.preventDefault();
+
+  const input = document.getElementById('aiInput');
+  const chatBox = document.getElementById('chatBox');
+  const message = input.value.trim();
+
+  if(!message) return;
+
+  const userMessage = document.createElement('div');
+  userMessage.className = 'message user-message';
+  userMessage.textContent = message;
+  chatBox.appendChild(userMessage);
+
+  const aiMessage = document.createElement('div');
+  aiMessage.className = 'message ai-message';
+
+  aiMessage.textContent = language === 'fa'
+    ? 'پیام شما در رابط NEX AI ثبت شد. برای دریافت پاسخ واقعی و هوشمند، باید سرور هوش مصنوعی به این بخش متصل شود.'
+    : 'Your message has been added to the NEX AI interface. A secure AI server connection is needed to generate real intelligent responses.';
+
+  chatBox.appendChild(aiMessage);
+
+  input.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
-
-/* TEXT CASE CONVERTER */
-function convertCase(type){
- const field=document.getElementById('caseText');
-
- field.value=type==='upper'
-  ?field.value.toUpperCase()
-  :field.value.toLowerCase();
-}
-
-function copyResult(id){
- const field=document.getElementById(id);
- const value=field.value;
-
- if(!value){
-  showMessage(language==='fa'?'متنی برای کپی وجود ندارد':'Nothing to copy');
-  return;
- }
-
- if(navigator.clipboard && window.isSecureContext){
-  navigator.clipboard.writeText(value)
-   .then(()=>showMessage(language==='fa'?'کپی شد':'Copied successfully'))
-   .catch(()=>showMessage(language==='fa'?'کپی انجام نشد':'Could not copy'));
- }else{
-  field.select();
-
-  try{
-   document.execCommand('copy');
-   showMessage(language==='fa'?'کپی شد':'Copied successfully');
-  }catch(e){
-   showMessage(language==='fa'?'کپی انجام نشد':'Could not copy');
-  }
- }
-}
-
-/* UNIT CONVERTER */
-const units={
- length:{
-  m:1,km:1000,cm:0.01,mm:0.001,ft:0.3048,in:0.0254
- },
- weight:{
-  kg:1,g:0.001,mg:0.000001,lb:0.45359237,oz:0.028349523125
- }
-};
-
-const unitLabels={
- length:['m','km','cm','mm','ft','in'],
- weight:['kg','g','mg','lb','oz'],
- temperature:['C','F','K']
-};
-
-function updateUnits(){
- const category=document.getElementById('unitCategory').value;
- const from=document.getElementById('unitFrom');
- const to=document.getElementById('unitTo');
-
- from.innerHTML='';
- to.innerHTML='';
-
- unitLabels[category].forEach(unit=>{
-  from.add(new Option(unit,unit));
-  to.add(new Option(unit,unit));
- });
-
- if(to.options.length>1){
-  to.selectedIndex=1;
- }
-
- convertUnit();
-}
-
-function convertUnit(){
- const category=document.getElementById('unitCategory').value;
- const raw=document.getElementById('unitValue').value;
- const from=document.getElementById('unitFrom').value;
- const to=document.getElementById('unitTo').value;
- const output=document.getElementById('unitResult');
-
- if(raw===''||!from||!to){
-  output.textContent='Result: —';
-  return;
- }
-
- const value=Number(raw);
-
- if(!Number.isFinite(value)){
-  output.textContent='Invalid value';
-  return;
- }
-
- let result;
-
- if(category==='temperature'){
-  let celsius;
-
-  if(from==='C')celsius=value;
-  else if(from==='F')celsius=(value-32)*5/9;
-  else celsius=value-273.15;
-
-  if(to==='C')result=celsius;
-  else if(to==='F')result=(celsius*9/5)+32;
-  else result=celsius+273.15;
-
- }else{
-  const base=value*units[category][from];
-  result=base/units[category][to];
- }
-
- const formatted=Number(result.toFixed(8)).toLocaleString('en-US');
-
- output.textContent='Result: '+formatted+' '+to;
-}
-
-document.getElementById('unitValue').addEventListener('input',convertUnit);
-
-updateUnits();
 </script>
+
 </body>
 </html>
