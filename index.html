@@ -1,754 +1,2999 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080D19">
-<meta name="description" content="NEXORA — One Platform. Endless Possibilities.">
-<title>NEXORA | Beyond the Ordinary</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- =========================================================
+       NEXORA — NEXT GENERATION
+       Premium digital ecosystem interface
+       Version: 2.0
+       Frontend only. No API keys or private credentials.
+       ========================================================= -->
 
-<style>
-:root {
-  --bg:#080D19;
-  --panel:#101A2B;
-  --panel2:#14243A;
-  --line:rgba(255,255,255,.09);
-  --text:#F4F7FC;
-  --muted:#91A0B7;
-  --cyan:#20C8F5;
-  --purple:#855BFA;
-  --red:#FF4668;
-  --radius:20px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  min-height:100vh;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{
-  width:100%;max-width:1100px;margin:auto;
-  padding:20px 18px 105px;
-}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-bottom:35px;
-}
-.brand{display:flex;align-items:center;gap:11px}
-.brand-mark{
-  width:42px;height:42px;border-radius:14px;
-  display:grid;place-items:center;font-weight:900;font-size:19px;
-  color:white;background:linear-gradient(135deg,var(--cyan),var(--purple));
-  box-shadow:0 0 25px rgba(32,200,245,.18);
-}
-.brand-name{font-size:18px;font-weight:850;letter-spacing:2px}
-.brand-sub{font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:3px}
-.top-actions{display:flex;gap:8px}
-.small-btn{
-  background:var(--panel);border:1px solid var(--line);
-  color:var(--text);border-radius:12px;padding:9px 13px;
-}
-.hero{
-  position:relative;overflow:hidden;
-  padding:36px 25px;border:1px solid var(--line);
-  border-radius:26px;
-  background:radial-gradient(circle at 85% 15%,rgba(133,91,250,.2),transparent 35%),
-             radial-gradient(circle at 10% 90%,rgba(32,200,245,.13),transparent 35%),
-             linear-gradient(135deg,#101B2D,#0B1220);
-}
-.eyebrow{
-  color:var(--cyan);font-size:11px;font-weight:800;
-  letter-spacing:3px;margin-bottom:15px;
-}
-.hero h1{font-size:clamp(36px,8vw,65px);line-height:1.05;margin:0 0 14px;font-weight:900}
-.gradient-text{
-  background:linear-gradient(90deg,var(--cyan),#A68AFF);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{color:var(--muted);line-height:1.8;max-width:540px;font-size:14px}
-.primary-btn{
-  border:0;border-radius:13px;padding:13px 19px;
-  color:#06111B;font-weight:850;
-  background:linear-gradient(100deg,var(--cyan),#8A8BFF);
-  margin-top:12px;
-}
-.section-heading{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:12px;margin:34px 2px 16px;
-}
-.section-heading h2{font-size:20px;margin:0}
-.section-heading p{font-size:12px;color:var(--muted);margin:5px 0 0}
-.section-tag{font-size:10px;color:var(--cyan);letter-spacing:2px}
-.grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;
-}
-.service-card{
-  text-align:left;color:var(--text);min-height:150px;
-  border:1px solid var(--line);border-radius:19px;
-  padding:17px;background:linear-gradient(145deg,#121F32,#0D1625);
-  transition:.2s;position:relative;overflow:hidden;
-}
-.service-card:active{transform:scale(.98)}
-.service-card:hover{border-color:rgba(32,200,245,.4)}
-.card-icon{
-  width:42px;height:42px;border-radius:13px;
-  display:grid;place-items:center;font-size:21px;margin-bottom:16px;
-  background:rgba(32,200,245,.11);
-}
-.service-card h3{font-size:15px;margin:0 0 6px}
-.service-card p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}
-.card-arrow{position:absolute;right:15px;top:17px;color:var(--muted)}
-[dir="rtl"] .card-arrow{right:auto;left:15px}
-.wide-card{grid-column:1/-1;min-height:120px}
-.view{display:none;animation:fade .25s ease}
-.view.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.back-btn{
-  border:1px solid var(--line);background:var(--panel);
-  color:var(--text);padding:10px 14px;border-radius:12px;margin-bottom:20px;
-}
-.page-title{font-size:27px;margin:0 0 8px}
-.page-desc{font-size:13px;line-height:1.8;color:var(--muted);margin:0 0 22px}
-.content-panel{
-  border:1px solid var(--line);background:var(--panel);
-  border-radius:18px;padding:17px;margin-bottom:13px;
-}
-.content-panel h3{margin:0 0 9px;font-size:15px}
-.content-panel p{color:var(--muted);font-size:13px;line-height:1.7}
-.demo-label{
-  display:inline-block;font-size:10px;padding:5px 9px;
-  border-radius:20px;color:#FFD78B;background:rgba(255,190,70,.1);
-  border:1px solid rgba(255,190,70,.2);
-}
-.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.pill{
-  background:#15243A;border:1px solid var(--line);color:var(--muted);
-  border-radius:30px;padding:8px 12px;font-size:11px;
-}
-.pill.active{color:var(--cyan);border-color:var(--cyan)}
-.article-card,.market-card{
-  padding:16px;border:1px solid var(--line);border-radius:16px;
-  background:linear-gradient(140deg,#14243A,#0D1727);margin-bottom:12px;
-}
-.article-card small,.market-card small{color:var(--cyan);font-size:10px}
-.article-card h3,.market-card h3{font-size:15px;margin:9px 0}
-.article-card p,.market-card p{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
-.game-board{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:9px;max-width:330px;margin:20px auto;
-}
-.game-cell{
-  aspect-ratio:1;border-radius:15px;border:1px solid var(--line);
-  background:#14243A;color:var(--cyan);font-size:38px;font-weight:900;
-}
-.game-status{text-align:center;color:var(--muted);font-size:14px}
-.action-btn{
-  border:1px solid var(--line);background:#172941;color:var(--text);
-  padding:11px 15px;border-radius:12px;
-}
-.action-btn.primary{background:var(--cyan);color:#06111B;border:0;font-weight:800}
-.center{text-align:center}
-.field{
-  width:100%;background:#091321;border:1px solid var(--line);
-  color:var(--text);border-radius:12px;padding:12px;outline:none;
-}
-.field:focus{border-color:var(--cyan)}
-textarea.field{min-height:120px;resize:vertical}
-.tool-result{
-  color:var(--cyan);font-size:13px;margin-top:10px;word-break:break-word;
-}
-.tool-group{margin:15px 0}
-.tool-group label{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
-.tool-group button{margin-top:8px}
-.coming-icon{font-size:34px;margin-bottom:12px}
-.feature-list{padding-left:19px;color:var(--muted);font-size:13px;line-height:2}
-[dir="rtl"] .feature-list{padding-left:0;padding-right:19px}
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:20;
-  display:flex;justify-content:center;
-  background:rgba(8,13,25,.93);backdrop-filter:blur(16px);
-  border-top:1px solid var(--line);padding:10px 8px calc(10px + env(safe-area-inset-bottom));
-}
-.nav-inner{width:100%;max-width:600px;display:flex;justify-content:space-around}
-.nav-btn{
-  border:0;background:transparent;color:var(--muted);
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  font-size:10px;min-width:62px;padding:5px;
-}
-.nav-btn span:first-child{font-size:19px}
-.nav-btn.active{color:var(--cyan)}
-.toast{
-  position:fixed;z-index:50;bottom:85px;left:50%;transform:translateX(-50%);
-  background:#1B2C43;color:white;border:1px solid var(--line);
-  padding:11px 17px;border-radius:12px;font-size:12px;
-  opacity:0;pointer-events:none;transition:.25s;
-  max-width:90%;text-align:center;
-}
-.toast.show{opacity:1}
-.footer{text-align:center;color:#65748B;font-size:10px;margin:35px 0 0}
-@media(min-width:700px){
-  .app{padding-top:28px}
-  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .wide-card{grid-column:auto}
-  .hero{padding:55px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070B14">
+  <meta name="description" content="NEXORA — One Platform. Endless Possibilities.">
+  <meta name="color-scheme" content="dark">
+  <title>NEXORA | Beyond the Ordinary</title>
+
+  <!-- Telegram Mini App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- =========================================================
+       DESIGN SYSTEM
+       ========================================================= -->
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070B14;
+      --bg-soft: #0A1120;
+      --surface: #0E192B;
+      --surface-2: #12223A;
+      --surface-3: #172B47;
+      --surface-glass: rgba(14, 25, 43, 0.76);
+      --line: rgba(169, 198, 230, 0.12);
+      --line-strong: rgba(169, 198, 230, 0.22);
+      --text: #F4F8FF;
+      --muted: #92A4BD;
+      --muted-2: #647792;
+      --cyan: #37D8FF;
+      --blue: #4E8CFF;
+      --violet: #9A76FF;
+      --pink: #FF6FAE;
+      --gold: #F7C66B;
+      --green: #52D6A0;
+      --danger: #FF637D;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
+      --shadow-glow: 0 0 40px rgba(55, 216, 255, 0.10);
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      --radius-xl: 34px;
+      --content: 1160px;
+      --nav-height: 78px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 5%, rgba(42, 117, 180, .13), transparent 28rem),
+        radial-gradient(circle at 92% 22%, rgba(128, 80, 220, .10), transparent 30rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .20;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      opacity: .48;
+      cursor: not-allowed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    ::selection {
+      color: #06101C;
+      background: var(--cyan);
+    }
+
+    .app-shell {
+      width: min(100% - 34px, var(--content));
+      margin-inline: auto;
+      padding-bottom: calc(var(--nav-height) + 34px);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(100deg, #42E2FF 0%, #7D9BFF 48%, #B38BFF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 7px 0 0;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
+
+    .section-copy {
+      max-width: 620px;
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .topbar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      text-align: start;
+      cursor: pointer;
+    }
+
+    .brand-symbol {
+      position: relative;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(74, 218, 255, .45);
+      border-radius: 16px;
+      background:
+        linear-gradient(145deg, rgba(55,216,255,.19), rgba(139,102,255,.18)),
+        #101D31;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.13),
+        0 8px 30px rgba(39, 167, 235, .15);
+    }
+
+    .brand-symbol::before {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(89, 225, 255, .65);
+      transform: rotate(45deg);
+      border-radius: 9px;
+    }
+
+    .brand-symbol svg {
+      position: relative;
+      z-index: 1;
+      width: 28px;
+      height: 28px;
+      color: #E9FBFF;
+      filter: drop-shadow(0 0 8px rgba(55,216,255,.7));
+    }
+
+    .brand-wordmark {
+      display: block;
+      font-size: 17px;
+      font-weight: 950;
+      letter-spacing: .15em;
+      line-height: 1.1;
+    }
+
+    .brand-caption {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted-2);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .23em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-button,
+    .language-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(16, 29, 49, .78);
+      color: var(--text);
+      transition: .2s var(--ease);
+      cursor: pointer;
+    }
+
+    .icon-button:hover,
+    .language-button:hover {
+      border-color: rgba(55,216,255,.5);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+    }
+
+    .language-button {
+      min-width: 48px;
+      padding-inline: 12px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(230px, .8fr);
+      align-items: center;
+      min-height: 390px;
+      padding: clamp(26px, 5vw, 58px);
+      overflow: hidden;
+      border: 1px solid rgba(127, 179, 229, .17);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(129, 91, 255, .22), transparent 36%),
+        radial-gradient(ellipse at 8% 95%, rgba(39, 202, 240, .17), transparent 38%),
+        linear-gradient(125deg, #10243A 0%, #0B1526 54%, #11142B 100%);
+      box-shadow: var(--shadow), var(--shadow-glow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 420px;
+      height: 420px;
+      right: -100px;
+      top: -150px;
+      border: 1px solid rgba(93, 208, 255, .17);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 32px rgba(93,208,255,.025),
+        0 0 0 66px rgba(93,208,255,.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+      opacity: .7;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+    }
+
+    .hero h1 {
+      max-width: 680px;
+      margin: 20px 0 15px;
+      font-size: clamp(39px, 7.3vw, 78px);
+      font-weight: 950;
+      letter-spacing: -.075em;
+      line-height: .99;
+    }
+
+    .hero-description {
+      max-width: 510px;
+      margin: 0;
+      color: #A8B9D0;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 11px;
+      margin-top: 27px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      transition: .2s var(--ease);
+      cursor: pointer;
+    }
+
+    .button-primary {
+      border: 0;
+      color: #06111C;
+      background: linear-gradient(100deg, #45E3FF, #8BA5FF 70%, #B18CFF);
+      box-shadow: 0 9px 26px rgba(55,216,255,.17);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(55,216,255,.25);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line-strong);
+      color: var(--text);
+      background: rgba(255,255,255,.035);
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(55,216,255,.45);
+      background: rgba(55,216,255,.07);
+    }
+
+    .hero-art {
+      position: relative;
+      display: grid;
+      min-height: 250px;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      width: min(290px, 100%);
+      aspect-ratio: 1;
+      border: 1px solid rgba(95, 205, 255, .23);
+      border-radius: 50%;
+      animation: orbit-spin 32s linear infinite;
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(164, 132, 255, .22);
+      border-radius: 50%;
+    }
+
+    .orbit::before {
+      inset: 22px;
+    }
+
+    .orbit::after {
+      inset: 48px;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: 22%;
+      right: 11%;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    .hero-core {
+      position: relative;
+            display: grid;
+      width: 190px;
+      height: 190px;
+      place-items: center;
+      border: 1px solid rgba(76, 220, 255, .42);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(72, 222, 255, .24), transparent 45%),
+        linear-gradient(145deg, rgba(24, 53, 83, .96), rgba(13, 22, 43, .96));
+      box-shadow:
+        inset 0 0 35px rgba(55, 216, 255, .12),
+        0 0 60px rgba(55, 216, 255, .13);
+    }
+
+    .hero-core::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(151, 127, 255, .45);
+      border-radius: 50%;
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+
+    .hero-core svg {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      color: #DDFBFF;
+      filter: drop-shadow(0 0 18px rgba(55, 216, 255, .65));
+    }
+
+    .hero-label {
+      position: absolute;
+      right: 0;
+      bottom: 18px;
+      padding: 9px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: rgba(8, 17, 31, .82);
+      color: #D9E9FC;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .13em;
+      backdrop-filter: blur(12px);
+    }
+
+    @keyframes orbit-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% {
+        transform: scale(.94);
+        opacity: .45;
+      }
+      50% {
+        transform: scale(1.06);
+        opacity: 1;
+      }
+    }
+
+    /* =========================================================
+       PLATFORM STATUS
+       ========================================================= */
+
+    .platform-status {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 20px 0 34px;
+      padding: 15px 19px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(12, 24, 41, .72);
+    }
+
+    .status-left,
+    .status-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 13px rgba(82, 214, 160, .8);
+    }
+
+    .status-text {
+      color: #C6D6E9;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .status-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--line-strong);
+    }
+
+    .status-meta {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* =========================================================
+       SECTION LAYOUT
+       ========================================================= */
+
+    .platform-section {
+      margin-top: 48px;
+      scroll-margin-top: 25px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading-copy {
+      min-width: 0;
+    }
+
+    .section-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--cyan);
+      background: rgba(55, 216, 255, .045);
+      font-size: 10px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: .2s var(--ease);
+    }
+
+    .section-link:hover {
+      border-color: rgba(55, 216, 255, .45);
+      background: rgba(55, 216, 255, .09);
+    }
+
+    /* =========================================================
+       FEATURE CARDS
+       ========================================================= */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .feature-card {
+      position: relative;
+      min-width: 0;
+      min-height: 205px;
+      padding: 21px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background:
+        linear-gradient(145deg, rgba(21, 39, 64, .92), rgba(12, 23, 40, .94));
+      transition: .25s var(--ease);
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(55, 216, 255, .38);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .23);
+    }
+
+    .feature-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -65px;
+      bottom: -75px;
+      border-radius: 50%;
+      background: var(--card-glow, rgba(55, 216, 255, .12));
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .feature-card.pulse-card {
+      --card-glow: rgba(55, 216, 255, .17);
+    }
+
+    .feature-card.play-card {
+      --card-glow: rgba(154, 118, 255, .19);
+    }
+
+    .feature-card.market-card {
+      --card-glow: rgba(247, 198, 107, .16);
+    }
+
+    .feature-card.studio-card {
+      --card-glow: rgba(255, 111, 174, .15);
+    }
+
+    .feature-card.tools-card {
+      --card-glow: rgba(78, 140, 255, .18);
+    }
+
+    .feature-card.learn-card {
+      --card-glow: rgba(82, 214, 160, .15);
+    }
+
+    .feature-card.space-card {
+      --card-glow: rgba(154, 118, 255, .16);
+    }
+
+    .feature-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 1px solid var(--feature-border, rgba(55, 216, 255, .3));
+      border-radius: 15px;
+      color: var(--feature-color, var(--cyan));
+      background: var(--feature-bg, rgba(55, 216, 255, .09));
+    }
+
+    .feature-icon .icon {
+      width: 25px;
+      height: 25px;
+    }
+
+    .feature-tag {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .025);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .feature-card h3 {
+      margin: 21px 0 8px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+    }
+
+    .feature-card p {
+      max-width: 310px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .feature-arrow {
+      position: absolute;
+      right: 19px;
+      bottom: 17px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .025);
+    }
+
+    /* =========================================================
+       CONTENT PANELS
+       ========================================================= */
+
+    .content-panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(17, 32, 53, .92), rgba(10, 20, 35, .94));
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .14);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+    }
+
+    .panel-description {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .panel-badge {
+      padding: 7px 10px;
+      border: 1px solid rgba(82, 214, 160, .25);
+      border-radius: 20px;
+      color: var(--green);
+      background: rgba(82, 214, 160, .07);
+      font-size: 9px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       PULSE FEED
+       ========================================================= */
+
+    .pulse-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .pulse-item {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 13px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .018);
+    }
+
+    .pulse-symbol {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--cyan);
+      background: rgba(55, 216, 255, .09);
+    }
+
+    .pulse-symbol .icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .pulse-item h4 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .pulse-item p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .pulse-time {
+      color: var(--muted-2);
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .demo-notice {
+      margin-top: 14px;
+      padding: 11px 13px;
+      border: 1px solid rgba(247, 198, 107, .18);
+      border-radius: 12px;
+      color: #D8BD87;
+      background: rgba(247, 198, 107, .045);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       BOTTOM NAVIGATION
+       ========================================================= */
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 50;
+      right: 50%;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      display: flex;
+      width: min(calc(100% - 24px), 620px);
+      align-items: center;
+      justify-content: space-around;
+      gap: 5px;
+      padding: 9px;
+      border: 1px solid rgba(151, 183, 219, .18);
+      border-radius: 20px;
+      background: rgba(8, 16, 29, .91);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, .42);
+      backdrop-filter: blur(22px);
+      transform: translateX(50%);
+    }
+
+    .nav-item {
+      display: flex;
+      min-width: 0;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 7px 4px;
+      border: 1px solid transparent;
+      border-radius: 13px;
+      color: var(--muted-2);
+      background: transparent;
+      font-size: 8px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: .2s var(--ease);
+    }
+
+    .nav-item .icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      border-color: rgba(55, 216, 255, .18);
+      color: var(--cyan);
+      background: rgba(55, 216, 255, .07);
+    }
+
+    /* =========================================================
+       GENERAL UTILITIES
+       ========================================================= */
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      margin: 18px 0;
+      background: var(--line);
+    }
+
+    .empty-state {
+      display: grid;
+      min-height: 150px;
+      place-items: center;
+      padding: 25px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 16px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .empty-state .icon {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 10px;
+      color: var(--muted-2);
+    }
+
+    .text-gradient {
+      color: transparent;
+      background: linear-gradient(100deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+        /* =========================================================
+       RESPONSIVE DESIGN
+       ========================================================= */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr) 230px;
+        padding: 34px;
+      }
+
+      .hero h1 {
+        font-size: clamp(38px, 7vw, 62px);
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      :root {
+        --nav-height: 74px;
+      }
+
+      .app-shell {
+        width: min(100% - 22px, var(--content));
+      }
+
+      .topbar {
+        padding: 15px 0;
+      }
+
+      .brand-symbol {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+        border-radius: 13px;
+      }
+
+      .brand-wordmark {
+        font-size: 14px;
+      }
+
+      .brand-caption {
+        font-size: 7px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 28px 22px 20px;
+        border-radius: 25px;
+      }
+
+      .hero h1 {
+        margin-top: 17px;
+        font-size: clamp(42px, 12vw, 64px);
+      }
+
+      .hero-description {
+        font-size: 12px;
+      }
+
+      .hero-art {
+        min-height: 210px;
+        margin-top: 8px;
+      }
+
+      .orbit {
+        width: 205px;
+      }
+
+      .hero-core {
+        width: 145px;
+        height: 145px;
+      }
+
+      .hero-core svg {
+        width: 70px;
+        height: 70px;
+      }
+
+      .hero-label {
+        right: 8px;
+        bottom: 8px;
+      }
+
+      .platform-status {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 28px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .feature-card {
+        min-height: 190px;
+        padding: 15px;
+      }
+
+      .feature-card h3 {
+        font-size: 14px;
+      }
+
+      .feature-card p {
+        font-size: 10px;
+      }
+
+      .feature-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .feature-tag {
+        font-size: 7px;
+        padding: 5px 7px;
+      }
+
+      .content-panel {
+        padding: 16px;
+      }
+
+      .pulse-item {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .pulse-symbol {
+        width: 39px;
+        height: 39px;
+      }
+
+      .pulse-time {
+        grid-column: 2;
+      }
+
+      .bottom-nav {
+        width: calc(100% - 18px);
+        bottom: max(8px, env(safe-area-inset-bottom));
+        padding: 7px 5px;
+      }
+
+      .nav-item {
+        font-size: 7px;
+        padding: 7px 2px;
+      }
+
+      .nav-item .icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+
+      .header-actions {
+        gap: 5px;
+      }
+
+      .icon-button,
+      .language-button {
+        min-width: 38px;
+        height: 38px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark">N</div>
-      <div>
-        <div class="brand-name">NEXORA</div>
-        <div class="brand-sub" data-en="NEXT GENERATION" data-fa="نسل آینده">NEXT GENERATION</div>
-      </div>
-    </div>
-    <div class="top-actions">
-      <button class="small-btn" id="languageButton">FA</button>
-    </div>
-  </header>
+  <div class="app-shell">
 
-  <main>
-    <section id="homeView" class="view active">
-      <div class="hero">
-        <div class="eyebrow" data-en="WELCOME TO THE FUTURE" data-fa="به آینده خوش آمدید">WELCOME TO THE FUTURE</div>
-        <h1><span data-en="Beyond the" data-fa="فراتر از">Beyond the</span><br><span class="gradient-text" data-en="Ordinary." data-fa="معمولی.">Ordinary.</span></h1>
-        <p data-en="Discover a smarter digital world. Explore technology, creativity, tools, learning and entertainment — all in one place."
-           data-fa="دنیای دیجیتال هوشمندتری را کشف کنید. فناوری، خلاقیت، ابزارها، آموزش و سرگرمی را در یک مکان تجربه کنید.">
-          Discover a smarter digital world. Explore technology, creativity, tools, learning and entertainment — all in one place.
-        </p>
-        <button class="primary-btn" id="exploreHero" data-en="EXPLORE NEXORA →" data-fa="کاوش در NEXORA ←">EXPLORE NEXORA →</button>
-      </div>
+    <!-- =======================================================
+         HEADER
+         ======================================================= -->
 
-      <div class="section-heading">
-        <div>
-          <h2 data-en="Explore the Platform" data-fa="بخش‌های پلتفرم">Explore the Platform</h2>
-          <p data-en="Seven spaces. One digital world." data-fa="هفت بخش، یک دنیای دیجیتال.">Seven spaces. One digital world.</p>
-        </div>
-        <span class="section-tag">NEXORA / 07</span>
-      </div>
+    <header class="topbar">
+      <button class="brand" id="brandHome" type="button" aria-label="NEXORA Home">
+        <span class="brand-symbol" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M11 34V14L37 34V14" stroke="currentColor"
+              stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 14L37 34" stroke="#37D8FF"
+              stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
 
-      <div class="grid" id="platformGrid">
-        <button class="service-card" data-open="pulse">
-          <span class="card-arrow">↗</span><div class="card-icon">◉</div>
-          <h3>NEX Pulse</h3>
-          <p data-en="Technology news and digital innovation." data-fa="اخبار فناوری و نوآوری دیجیتال.">Technology news and digital innovation.</p>
-        </button>
-        <button class="service-card" data-open="play">
-          <span class="card-arrow">↗</span><div class="card-icon">▣</div>
-          <h3>NEX Play</h3>
-          <p data-en="Games, challenges and digital entertainment." data-fa="بازی‌ها، چالش‌ها و سرگرمی دیجیتال.">Games, challenges and digital entertainment.</p>
-        </button>
-        <button class="service-card" data-open="market">
-          <span class="card-arrow">↗</span><div class="card-icon">◇</div>
-          <h3>NEX Market</h3>
-          <p data-en="Discover digital products and services." data-fa="محصولات و خدمات دیجیتال را کشف کنید.">Discover digital products and services.</p>
-        </button>
-        <button class="service-card" data-open="studio">
-          <span class="card-arrow">↗</span><div class="card-icon">✦</div>
-          <h3>NEX Studio</h3>
-          <p data-en="A space for creativity and creation." data-fa="فضایی برای خلاقیت و تولید.">A space for creativity and creation.</p>
-        </button>
-        <button class="service-card" data-open="tools">
-          <span class="card-arrow">↗</span><div class="card-icon">⌘</div>
-          <h3>NEX Tools</h3>
-          <p data-en="Useful digital tools for everyday tasks." data-fa="ابزارهای کاربردی دیجیتال برای کارهای روزمره.">Useful digital tools for everyday tasks.</p>
-        </button>
-        <button class="service-card" data-open="learn">
-          <span class="card-arrow">↗</span><div class="card-icon">▤</div>
-          <h3>NEX Learn</h3>
-          <p data-en="Learn skills and explore new ideas." data-fa="مهارت بیاموزید و ایده‌های تازه کشف کنید.">Learn skills and explore new ideas.</p>
-        </button>
-        <button class="service-card wide-card" data-open="space">
-          <span class="card-arrow">↗</span><div class="card-icon">◎</div>
-          <h3>NEX Space</h3>
-          <p data-en="Your personal space in the NEXORA ecosystem." data-fa="فضای شخصی شما در اکوسیستم NEXORA.">Your personal space in the NEXORA ecosystem.</p>
-        </button>
-      </div>
-    </section>
-
-    <!-- NEX PULSE -->
-    <section id="pulseView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <h1 class="page-title">NEX <span class="gradient-text">Pulse</span></h1>
-      <p class="page-desc" data-en="A space for technology topics, digital trends and innovation. The entries below are sample content, not live news."
-         data-fa="فضایی برای موضوعات فناوری، روندهای دیجیتال و نوآوری. مطالب زیر نمونه نمایشی هستند و اخبار زنده نیستند.">
-        A space for technology topics, digital trends and innovation. The entries below are sample content, not live news.
-      </p>
-      <span class="demo-label" data-en="SAMPLE CONTENT" data-fa="محتوای نمونه">SAMPLE CONTENT</span>
-      <div class="pill-row" id="pulseFilters">
-        <button class="pill active" data-filter="all" data-en="All" data-fa="همه">All</button>
-        <button class="pill" data-filter="ai" data-en="AI" data-fa="هوش مصنوعی">AI</button>
-        <button class="pill" data-filter="tech" data-en="Technology" data-fa="فناوری">Technology</button>
-        <button class="pill" data-filter="digital" data-en="Digital Life" data-fa="زندگی دیجیتال">Digital Life</button>
-      </div>
-      <div id="pulseArticles"></div>
-    </section>
-
-    <!-- NEX PLAY -->
-    <section id="playView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <h1 class="page-title">NEX <span class="gradient-text">Play</span></h1>
-      <p class="page-desc" data-en="Enjoy simple games and challenges. This game runs locally on this device; it is not an online competition."
-         data-fa="از بازی‌ها و چالش‌های ساده لذت ببرید. این بازی روی همین دستگاه اجرا می‌شود و رقابت آنلاین نیست.">
-        Enjoy simple games and challenges. This game runs locally on this device; it is not an online competition.
-      </p>
-      <div class="content-panel">
-        <div class="center">
-          <span class="demo-label" data-en="LOCAL TWO-PLAYER GAME" data-fa="بازی دونفره روی یک دستگاه">LOCAL TWO-PLAYER GAME</span>
-          <h3 style="margin-top:15px" data-en="Tic Tac Toe" data-fa="دوز">Tic Tac Toe</h3>
-          <p data-en="Take turns with a friend on the same device." data-fa="با دوست خود روی یک دستگاه نوبتی بازی کنید.">Take turns with a friend on the same device.</p>
-        </div>
-        <div class="game-board" id="gameBoard">
-          <button class="game-cell" data-cell="0"></button>
-          <button class="game-cell" data-cell="1"></button>
-          <button class="game-cell" data-cell="2"></button>
-          <button class="game-cell" data-cell="3"></button>
-          <button class="game-cell" data-cell="4"></button>
-          <button class="game-cell" data-cell="5"></button>
-          <button class="game-cell" data-cell="6"></button>
-          <button class="game-cell" data-cell="7"></button>
-          <button class="game-cell" data-cell="8"></button>
-        </div>
-        <div class="game-status" id="gameStatus">Player X — your turn</div>
-        <div class="center" style="margin-top:18px">
-          <button class="action-btn primary" id="resetGame" data-en="New Game" data-fa="بازی جدید">New Game</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEX MARKET -->
-    <section id="marketView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <h1 class="page-title">NEX <span class="gradient-text">Market</span></h1>
-      <p class="page-desc" data-en="Explore examples of digital products and services. This is a sample catalog; purchases and payments are not enabled."
-         data-fa="نمونه‌هایی از محصولات و خدمات دیجیتال را ببینید. این یک کاتالوگ نمایشی است و خرید و پرداخت فعال نیست.">
-        Explore examples of digital products and services. This is a sample catalog; purchases and payments are not enabled.
-      </p>
-      <span class="demo-label" data-en="DEMO CATALOG — NO PAYMENTS" data-fa="کاتالوگ نمایشی — بدون پرداخت">DEMO CATALOG — NO PAYMENTS</span>
-      <div class="pill-row" id="marketFilters">
-        <button class="pill active" data-market="all" data-en="All" data-fa="همه">All</button>
-        <button class="pill" data-market="design" data-en="Design" data-fa="طراحی">Design</button>
-        <button class="pill" data-market="learning" data-en="Learning" data-fa="آموزش">Learning</button>
-        <button class="pill" data-market="digital" data-en="Digital" data-fa="دیجیتال">Digital</button>
-      </div>
-      <div id="marketItems"></div>
-    </section>
-
-    <!-- NEX TOOLS -->
-    <section id="toolsView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <h1 class="page-title">NEX <span class="gradient-text">Tools</span></h1>
-      <p class="page-desc" data-en="Simple tools that work directly in your browser." data-fa="ابزارهای ساده که مستقیماً در مرورگر شما کار می‌کنند.">Simple tools that work directly in your browser.</p>
-
-      <div class="content-panel">
-        <h3 data-en="Text Counter" data-fa="شمارش متن">Text Counter</h3>
-        <div class="tool-group">
-          <label data-en="Enter your text" data-fa="متن خود را وارد کنید">Enter your text</label>
-          <textarea class="field" id="counterText" placeholder="Type something..."></textarea>
-          <div class="tool-result" id="counterResult">0 characters · 0 words</div>
-        </div>
-      </div>
-
-      <div class="content-panel">
-        <h3 data-en="Text Case Converter" data-fa="تبدیل حروف متن">Text Case Converter</h3>
-        <div class="tool-group">
-          <label data-en="Text" data-fa="متن">Text</label>
-          <input class="field" id="caseText" placeholder="Enter text...">
-          <div class="pill-row">
-            <button class="action-btn" data-case="upper">UPPERCASE</button>
-            <button class="action-btn" data-case="lower">lowercase</button>
-            <button class="action-btn" data-case="title">Title Case</button>
-          </div>
-          <div class="tool-result" id="caseResult"></div>
-          <button class="action-btn" id="copyCase" data-en="Copy Result" data-fa="کپی نتیجه">Copy Result</button>
-        </div>
-      </div>
-
-      <div class="content-panel">
-        <h3 data-en="Unit Converter" data-fa="تبدیل واحد">Unit Converter</h3>
-        <div class="tool-group">
-          <label data-en="Kilometers to miles" data-fa="کیلومتر به مایل">Kilometers to miles</label>
-          <input class="field" id="kmInput" type="number" min="0" placeholder="Enter kilometers">
-          <button class="action-btn primary" id="convertKm" data-en="Convert" data-fa="تبدیل">Convert</button>
-          <div class="tool-result" id="kmResult"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMING SOON SECTIONS -->
-    <section id="studioView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <div class="content-panel">
-        <div class="coming-icon">✦</div>
-        <h1 class="page-title">NEX <span class="gradient-text">Studio</span></h1>
-        <p class="page-desc" data-en="A creative workspace for digital content, design and creation." data-fa="فضایی خلاقانه برای تولید محتوای دیجیتال، طراحی و آفرینش.">A creative workspace for digital content, design and creation.</p>
-        <span class="demo-label" data-en="IN DEVELOPMENT" data-fa="در حال توسعه">IN DEVELOPMENT</span>
-      </div>
-    </section>
-
-    <section id="learnView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <div class="content-panel">
-        <div class="coming-icon">▤</div>
-        <h1 class="page-title">NEX <span class="gradient-text">Learn</span></h1>
-        <p class="page-desc" data-en="A learning space for useful skills, technology and new ideas." data-fa="فضایی آموزشی برای مهارت‌های کاربردی، فناوری و ایده‌های نو.">A learning space for useful skills, technology and new ideas.</p>
-        <span class="demo-label" data-en="IN DEVELOPMENT" data-fa="در حال توسعه">IN DEVELOPMENT</span>
-      </div>
-    </section>
-
-    <section id="spaceView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <div class="content-panel">
-        <div class="coming-icon">◎</div>
-        <h1 class="page-title">NEX <span class="gradient-text">Space</span></h1>
-        <p class="page-desc" data-en="A personal space for your future NEXORA activity and preferences." data-fa="فضای شخصی برای فعالیت‌ها و تنظیمات آینده شما در NEXORA.">A personal space for your future NEXORA activity and preferences.</p>
-        <span class="demo-label" data-en="IN DEVELOPMENT" data-fa="در حال توسعه">IN DEVELOPMENT</span>
-      </div>
-    </section>
-
-    <section id="profileView" class="view">
-      <button class="back-btn" data-back>← <span data-en="Back" data-fa="بازگشت">Back</span></button>
-      <h1 class="page-title" data-en="Your Profile" data-fa="پروفایل شما">Your Profile</h1>
-      <div class="content-panel">
-        <div class="coming-icon">◉</div>
-        <h3 data-en="NEXORA Profile" data-fa="پروفایل NEXORA">NEXORA Profile</h3>
-        <p data-en="Personal accounts and profile settings are not available yet." data-fa="حساب کاربری و تنظیمات پروفایل هنوز فعال نشده‌اند.">Personal accounts and profile settings are not available yet.</p>
-        <span class="demo-label" data-en="COMING SOON" data-fa="به‌زودی">COMING SOON</span>
-      </div>
-    </section>
-  </main>
-
-  <div class="footer">NEXORA © 2026 · <span data-en="BEYOND THE ORDINARY" data-fa="فراتر از معمولی">BEYOND THE ORDINARY</span></div>
-</div>
-
-<nav class="bottom-nav">
-  <div class="nav-inner">
-    <button class="nav-btn active" data-nav="home">
-      <span>⌂</span><span data-en="Home" data-fa="خانه">Home</span>
-    </button>
-    <button class="nav-btn" data-nav="explore">
-      <span>⌕</span><span data-en="Explore" data-fa="کاوش">Explore</span>
-    </button>
-    <button class="nav-btn" data-nav="services">
-      <span>▦</span><span data-en="Services" data-fa="خدمات">Services</span>
-    </button>
-    <button class="nav-btn" data-nav="profile">
-      <span>◉</span><span data-en="Profile" data-fa="پروفایل">Profile</span>
-    </button>
-  </div>
-</nav>
-
-<div class="toast" id="toast"></div>
-
-<script>
-/* Telegram Mini App */
-const tg = window.Telegram && window.Telegram.WebApp;
-if (tg) {
-  tg.ready();
-  tg.expand();
-}
-
-/* Language */
-let language = localStorage.getItem("nexora-language") || "en";
-const languageButton = document.getElementById("languageButton");
-
-function applyLanguage() {
-  document.documentElement.lang = language;
-  document.documentElement.dir = language === "fa" ? "rtl" : "ltr";
-  document.querySelectorAll("[data-en][data-fa]").forEach(element => {
-    element.textContent = element.dataset[language];
-  });
-  languageButton.textContent = language === "en" ? "FA" : "EN";
-  renderPulse(activePulseFilter);
-  renderMarket(activeMarketFilter);
-  updateGameStatus();
-}
-languageButton.addEventListener("click", () => {
-  language = language === "en" ? "fa" : "en";
-  localStorage.setItem("nexora-language", language);
-  applyLanguage();
-});
-
-/* Navigation */
-const views = document.querySelectorAll(".view");
-const navButtons = document.querySelectorAll(".nav-btn");
-
-function showView(name) {
-  views.forEach(view => view.classList.remove("active"));
-  const target = document.getElementById(name + "View");
-  if (target) target.classList.add("active");
-  navButtons.forEach(button => {
-    button.classList.toggle("active", button.dataset.nav === name);
-  });
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function openSection(name) {
-  showView(name);
-}
-document.querySelectorAll("[data-open]").forEach(button => {
-  button.addEventListener("click", () => openSection(button.dataset.open));
-});
-document.querySelectorAll("[data-back]").forEach(button => {
-  button.addEventListener("click", () => showView("home"));
-});
-document.getElementById("exploreHero").addEventListener("click", () => {
-  document.getElementById("platformGrid").scrollIntoView({behavior:"smooth",block:"start"});
-});
-
-navButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    const action = button.dataset.nav;
-    if (action === "home") showView("home");
-    if (action === "explore") {
-      showView("home");
-      setTimeout(() => document.getElementById("platformGrid").scrollIntoView({behavior:"smooth"}),100);
-    }
-    if (action === "services") showView("tools");
-    if (action === "profile") showView("profile");
-  });
-});
-
-/* Toast */
-let toastTimer;
-function toast(message) {
-  const element = document.getElementById("toast");
-  element.textContent = message;
-  element.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => element.classList.remove("show"),2400);
-}
-
-/* NEX PULSE — sample content */
-const pulseData = [
-  {
-    category:"ai",
-    title:{en:"Understanding Artificial Intelligence",fa:"آشنایی با هوش مصنوعی"},
-    text:{en:"Explore how AI tools can support learning, creativity and everyday digital tasks.",fa:"بررسی کنید که ابزارهای هوش مصنوعی چگونه می‌توانند در یادگیری، خلاقیت و کارهای دیجیتال روزمره کمک کنند."}
-  },
-  {
-    category:"tech",
-    title:{en:"The World of Web Technology",fa:"دنیای فناوری وب"},
-    text:{en:"A simple introduction to websites, browsers and the technologies behind modern web experiences.",fa:"آشنایی ساده با وب‌سایت‌ها، مرورگرها و فناوری‌های پشت تجربه‌های امروزی وب."}
-  },
-  {
-    category:"digital",
-    title:{en:"Building Better Digital Habits",fa:"ساخت عادت‌های دیجیتال بهتر"},
-    text:{en:"Learn about privacy awareness, thoughtful screen time and safer online habits.",fa:"درباره آگاهی از حریم خصوصی، مدیریت زمان صفحه‌نمایش و عادت‌های امن‌تر آنلاین بیاموزید."}
-  },
-  {
-    category:"ai",
-    title:{en:"Creative Uses of AI",fa:"کاربردهای خلاقانه هوش مصنوعی"},
-    text:{en:"Discover how digital tools can help organize ideas and support creative projects.",fa:"کشف کنید که ابزارهای دیجیتال چگونه به سازمان‌دهی ایده‌ها و پروژه‌های خلاقانه کمک می‌کنند."}
-  }
-];
-let activePulseFilter = "all";
-
-function renderPulse(filter) {
-  activePulseFilter = filter;
-  const container = document.getElementById("pulseArticles");
-  if (!container) return;
-  const items = pulseData.filter(item => filter === "all" || item.category === filter);
-  container.innerHTML = items.map(item => `
-    <article class="article-card">
-      <small>${item.category.toUpperCase()} · NEX PULSE</small>
-      <h3>${item.title[language]}</h3>
-      <p>${item.text[language]}</p>
-    </article>
-  `).join("");
-}
-document.querySelectorAll("[data-filter]").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-filter]").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    renderPulse(button.dataset.filter);
-  });
-});
-
-/* NEX MARKET — sample catalog */
-const marketData = [
-  {
-    category:"design",
-    title:{en:"Social Media Design Pack",fa:"بسته طراحی شبکه‌های اجتماعی"},
-    description:{en:"A sample concept for reusable social media design templates.",fa:"یک نمونه نمایشی از قالب‌های قابل استفاده برای طراحی شبکه‌های اجتماعی."}
-  },
-  {
-    category:"learning",
-    title:{en:"Digital Skills Starter",fa:"شروع مهارت‌های دیجیتال"},
-    description:{en:"A sample learning resource for people exploring digital skills.",fa:"یک منبع آموزشی نمونه برای افرادی که مهارت‌های دیجیتال را یاد می‌گیرند."}
-  },
-  {
-    category:"digital",
-    title:{en:"Productivity Toolkit",fa:"مجموعه ابزارهای بهره‌وری"},
-    description:{en:"A sample collection concept for useful digital resources.",fa:"یک نمونه نمایشی از مجموعه منابع دیجیتال کاربردی."}
-  }
-];
-let activeMarketFilter = "all";
-
-function renderMarket(filter) {
-  activeMarketFilter = filter;
-  const container = document.getElementById("marketItems");
-  if (!container) return;
-  const items = marketData.filter(item => filter === "all" || item.category === filter);
-  container.innerHTML = items.map(item => `
-    <article class="market-card">
-      <small>${item.category.toUpperCase()} · DEMO</small>
-      <h3>${item.title[language]}</h3>
-      <p>${item.description[language]}</p>
-      <button class="action-btn market-info" style="margin-top:13px" data-en="View sample" data-fa="دیدن نمونه">
-        ${language === "fa" ? "دیدن نمونه" : "View sample"}
+        <span>
+          <span class="brand-wordmark">NEXORA</span>
+          <span class="brand-caption">NEXT GENERATION</span>
+        </span>
       </button>
-    </article>
-  `).join("");
-  container.querySelectorAll(".market-info").forEach(button => {
-    button.addEventListener("click", () => {
-      toast(language === "fa" ? "این مورد فقط نمونه نمایشی است." : "This item is only a demo example.");
+
+      <div class="header-actions">
+        <button class="icon-button" id="homeButton" type="button"
+          aria-label="Go to home" title="Home">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="m3 10 9-7 9 7"/>
+            <path d="M5 9v11h14V9"/>
+            <path d="M9 20v-7h6v7"/>
+          </svg>
+        </button>
+
+        <button class="language-button" id="languageButton" type="button"
+          aria-label="Change language">FA</button>
+      </div>
+    </header>
+
+    <!-- =======================================================
+         HOME HERO
+         ======================================================= -->
+
+    <main id="mainContent">
+
+      <section class="hero" id="homeSection">
+        <div class="hero-content">
+          <span class="eyebrow" data-i18n="heroEyebrow">
+            THE DIGITAL FRONTIER
+          </span>
+
+          <h1>
+            <span data-i18n="heroLineOne">Beyond the</span>
+            <span class="gradient-text" data-i18n="heroLineTwo">Ordinary.</span>
+          </h1>
+
+          <p class="hero-description" data-i18n="heroDescription">
+            Discover a smarter digital world. Explore creativity,
+            technology, knowledge and experiences in one connected space.
+          </p>
+
+          <div class="hero-actions">
+            <button class="button-primary" id="exploreButton" type="button">
+              <span data-i18n="explore">Explore NEXORA</span>
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M5 12h14"/>
+                <path d="m13 6 6 6-6 6"/>
+              </svg>
+            </button>
+
+            <button class="button-secondary" id="aboutButton" type="button">
+              <span data-i18n="discover">Discover More</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit">
+            <span class="orbit-dot"></span>
+          </div>
+
+          <div class="hero-core">
+            <svg viewBox="0 0 100 100" fill="none">
+              <path d="M20 72V28L80 72V28"
+                stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 28L80 72"
+                stroke="#37D8FF" stroke-width="2.5"
+                stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="39"
+                stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+            </svg>
+          </div>
+
+          <span class="hero-label">NEXORA 2.0</span>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PLATFORM STATUS
+           ===================================================== -->
+
+      <div class="platform-status">
+        <div class="status-left">
+          <span class="status-indicator"></span>
+          <span class="status-text" data-i18n="platformReady">
+            PLATFORM READY
+          </span>
+          <span class="status-divider"></span>
+          <span class="status-meta" data-i18n="digitalEcosystem">
+            Digital Ecosystem
+          </span>
+        </div>
+
+        <div class="status-right">
+          <span class="status-meta">VERSION 2.0</span>
+          <span class="status-divider"></span>
+          <span class="status-meta">NEXORA GLOBAL</span>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           PLATFORM DISCOVERY
+           ===================================================== -->
+
+      <section class="platform-section" id="discoverSection">
+        <div class="section-heading">
+          <div class="section-heading-copy">
+            <span class="section-kicker" data-i18n="discoverKicker">
+              EXPLORE THE ECOSYSTEM
+            </span>
+
+            <h2 class="section-title" data-i18n="discoverTitle">
+              Everything in One Universe
+            </h2>
+
+            <p class="section-copy" data-i18n="discoverDescription">
+              Explore the different dimensions of NEXORA and discover
+              tools, ideas and experiences designed for the digital age.
+            </p>
+          </div>
+
+          <button class="section-link" id="viewAllButton" type="button">
+            <span data-i18n="viewAll">View All</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+
+        <div class="feature-grid">
+
+          <!-- NEX PULSE -->
+          <article class="feature-card pulse-card" data-page="pulse"
+            tabindex="0" role="button" aria-label="Open NEX Pulse">
+            <div class="feature-top">
+              <span class="feature-icon">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M3 12h4l3-8 4 16 3-8h4"/>
+                </svg>
+              </span>
+              <span class="feature-tag">INSIGHTS</span>
+            </div>
+
+            <h3>NEX PULSE</h3>
+            <p data-i18n="pulseDescription">
+              Discover technology trends, innovation and digital stories.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX PLAY -->
+          <article class="feature-card play-card" data-page="play"
+            tabindex="0" role="button" aria-label="Open NEX Play">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#B69BFF;--feature-border:rgba(154,118,255,.3);--feature-bg:rgba(154,118,255,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="4"/>
+                  <path d="M8 8h.01M16 8h.01M8 16h.01M16 16h.01"/>
+                  <path d="m9 9 6 6m0-6-6 6"/>
+                </svg>
+              </span>
+              <span class="feature-tag">ENTERTAINMENT</span>
+            </div>
+
+            <h3>NEX PLAY</h3>
+            <p data-i18n="playDescription">
+              Enjoy interactive mini-games and simple digital experiences.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX MARKET -->
+          <article class="feature-card market-card" data-page="market"
+            tabindex="0" role="button" aria-label="Open NEX Market">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#F7C66B;--feature-border:rgba(247,198,107,.3);--feature-bg:rgba(247,198,107,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="M3 9h18l-2 12H5L3 9Z"/>
+                  <path d="M8 9a4 4 0 0 1 8 0"/>
+                  <path d="M9 13v4m6-4v4"/>
+                </svg>
+              </span>
+              <span class="feature-tag">DISCOVERY</span>
+            </div>
+
+            <h3>NEX MARKET</h3>
+            <p data-i18n="marketDescription">
+              Explore a curated showcase of digital products and ideas.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX STUDIO -->
+          <article class="feature-card studio-card" data-page="studio"
+            tabindex="0" role="button" aria-label="Open NEX Studio">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#FF91BD;--feature-border:rgba(255,111,174,.3);--feature-bg:rgba(255,111,174,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-2-5.8L4 11l6-2.2L12 3Z"/>
+                  <path d="m19 14 1.1 2.9L23 18l-2.9 1.1L19 22l-1.1-2.9L15 18l2.9-1.1L19 14Z"/>
+                </svg>
+              </span>
+              <span class="feature-tag">CREATIVITY</span>
+            </div>
+
+            <h3>NEX STUDIO</h3>
+            <p data-i18n="studioDescription">
+              A space for creative ideas, inspiration and expression.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX TOOLS -->
+          <article class="feature-card tools-card" data-page="tools"
+            tabindex="0" role="button" aria-label="Open NEX Tools">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#78A9FF;--feature-border:rgba(78,140,255,.3);--feature-bg:rgba(78,140,255,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="m14.7 6.3 3 3"/>
+                  <path d="m5 19 9.7-9.7a4.2 4.2 0 0 0 5.6-5.6l-3 3-3-3 3-3a4.2 4.2 0 0 0-5.6 5.6L2 17.7V22h4.3L5 19Z"/>
+                </svg>
+              </span>
+              <span class="feature-tag">PRODUCTIVITY</span>
+            </div>
+
+            <h3>NEX TOOLS</h3>
+            <p data-i18n="toolsDescription">
+              Discover useful digital utilities in one convenient place.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX LEARN -->
+          <article class="feature-card learn-card" data-page="learn"
+            tabindex="0" role="button" aria-label="Open NEX Learn">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#52D6A0;--feature-border:rgba(82,214,160,.3);--feature-bg:rgba(82,214,160,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path d="m2 9 10-5 10 5-10 5L2 9Z"/>
+                  <path d="M6 11v5c3.5 3 8.5 3 12 0v-5"/>
+                  <path d="M22 9v6"/>
+                </svg>
+              </span>
+              <span class="feature-tag">KNOWLEDGE</span>
+            </div>
+
+            <h3>NEX LEARN</h3>
+            <p data-i18n="learnDescription">
+              Explore learning resources and expand your knowledge.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+          <!-- NEX SPACE -->
+          <article class="feature-card space-card" data-page="space"
+            tabindex="0" role="button" aria-label="Open NEX Space">
+            <div class="feature-top">
+              <span class="feature-icon"
+                style="--feature-color:#B69BFF;--feature-border:rgba(154,118,255,.3);--feature-bg:rgba(154,118,255,.09)">
+                <svg class="icon" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M3 12h18M12 3a15 15 0 0 1 0 18"/>
+                  <path d="M12 3a15 15 0 0 0 0 18"/>
+                </svg>
+              </span>
+              <span class="feature-tag">COMMUNITY</span>
+            </div>
+
+            <h3>NEX SPACE</h3>
+            <p data-i18n="spaceDescription">
+              Discover a connected space for digital exploration.
+            </p>
+
+            <span class="feature-arrow" aria-hidden="true">↗</span>
+          </article>
+
+        </div>
+      </section>
+            <!-- =====================================================
+           INTERNAL PAGES
+           ===================================================== -->
+
+      <section class="platform-section hidden" id="internalSection">
+
+        <!-- PAGE HEADER -->
+        <div class="section-heading">
+          <div class="section-heading-copy">
+            <span class="section-kicker" id="pageKicker">
+              NEXORA EXPERIENCE
+            </span>
+            <h2 class="section-title" id="pageTitle">
+              Explore NEXORA
+            </h2>
+            <p class="section-copy" id="pageDescription">
+              Discover a new digital experience.
+            </p>
+          </div>
+
+          <button class="section-link" id="backHomeButton" type="button">
+            <span data-i18n="backHome">Back Home</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+
+        <!-- PULSE PAGE -->
+        <div class="page-content hidden" id="page-pulse">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX PULSE</h3>
+                <p class="panel-description" data-i18n="pulseIntro">
+                  Technology, innovation and ideas shaping tomorrow.
+                </p>
+              </div>
+              <span class="panel-badge">DEMO FEED</span>
+            </div>
+
+            <div class="pulse-list">
+              <article class="pulse-item">
+                <span class="pulse-symbol">
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7v5l3 2"/>
+                  </svg>
+                </span>
+                <div>
+                  <h4 data-i18n="pulseOneTitle">The Future of Digital Innovation</h4>
+                  <p data-i18n="pulseOneText">
+                    New ideas continue to reshape the connected world.
+                  </p>
+                </div>
+                <span class="pulse-time">INSIGHT 01</span>
+              </article>
+
+              <article class="pulse-item">
+                <span class="pulse-symbol">
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 3v18M3 12h18"/>
+                    <circle cx="12" cy="12" r="8"/>
+                  </svg>
+                </span>
+                <div>
+                  <h4 data-i18n="pulseTwoTitle">Technology Without Limits</h4>
+                  <p data-i18n="pulseTwoText">
+                    Explore how emerging tools create new opportunities.
+                  </p>
+                </div>
+                <span class="pulse-time">INSIGHT 02</span>
+              </article>
+
+              <article class="pulse-item">
+                <span class="pulse-symbol">
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <path d="m3 17 6-6 4 4 8-9"/>
+                    <path d="M15 6h6v6"/>
+                  </svg>
+                </span>
+                <div>
+                  <h4 data-i18n="pulseThreeTitle">A Smarter Digital Future</h4>
+                  <p data-i18n="pulseThreeText">
+                    Creativity and knowledge can move the world forward.
+                  </p>
+                </div>
+                <span class="pulse-time">INSIGHT 03</span>
+              </article>
+            </div>
+
+            <div class="demo-notice" data-i18n="demoNotice">
+              These are demonstration entries. They are not live news.
+            </div>
+          </div>
+        </div>
+
+        <!-- PLAY PAGE -->
+        <div class="page-content hidden" id="page-play">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX PLAY</h3>
+                <p class="panel-description" data-i18n="playIntro">
+                  A simple game experience inside NEXORA.
+                </p>
+              </div>
+              <span class="panel-badge">MINI GAME</span>
+            </div>
+
+            <div class="game-container">
+              <div class="game-heading">
+                <span class="game-label" data-i18n="ticTacToe">
+                  TIC TAC TOE
+                </span>
+                <span class="game-turn" id="gameStatus">
+                  X's turn
+                </span>
+              </div>
+
+              <div class="game-board" id="gameBoard">
+                <button class="game-cell" type="button" data-cell="0" aria-label="Cell 1"></button>
+                <button class="game-cell" type="button" data-cell="1" aria-label="Cell 2"></button>
+                <button class="game-cell" type="button" data-cell="2" aria-label="Cell 3"></button>
+                <button class="game-cell" type="button" data-cell="3" aria-label="Cell 4"></button>
+                <button class="game-cell" type="button" data-cell="4" aria-label="Cell 5"></button>
+                <button class="game-cell" type="button" data-cell="5" aria-label="Cell 6"></button>
+                <button class="game-cell" type="button" data-cell="6" aria-label="Cell 7"></button>
+                <button class="game-cell" type="button" data-cell="7" aria-label="Cell 8"></button>
+                <button class="game-cell" type="button" data-cell="8" aria-label="Cell 9"></button>
+              </div>
+
+              <div class="game-footer">
+                <p class="game-message" id="gameMessage" data-i18n="gameMessage">
+                  Player X starts. Take turns on the same device.
+                </p>
+                <button class="button-primary" id="resetGameButton" type="button">
+                  <span data-i18n="newGame">New Game</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="demo-notice" data-i18n="localGameNotice">
+              This is a local two-player game. No online matchmaking is included.
+            </div>
+          </div>
+        </div>
+
+        <!-- MARKET PAGE -->
+        <div class="page-content hidden" id="page-market">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX MARKET</h3>
+                <p class="panel-description" data-i18n="marketIntro">
+                  A showcase of digital ideas and discoveries.
+                </p>
+              </div>
+              <span class="panel-badge">SHOWCASE</span>
+            </div>
+
+            <div class="market-grid">
+              <article class="market-card">
+                <div class="market-art market-art-blue">
+                  <span>NX</span>
+                </div>
+                <div class="market-info">
+                  <span class="market-category">DIGITAL</span>
+                  <h4>Digital Essentials</h4>
+                  <p data-i18n="marketItemOne">
+                    Useful digital resources and ideas.
+                  </p>
+                  <span class="market-status" data-i18n="comingSoon">
+                    Coming Soon
+                  </span>
+                </div>
+              </article>
+
+              <article class="market-card">
+                <div class="market-art market-art-purple">
+                  <span>✦</span>
+                </div>
+                <div class="market-info">
+                  <span class="market-category">CREATIVE</span>
+                  <h4>Creative Collection</h4>
+                  <p data-i18n="marketItemTwo">
+                    Inspiration for your next project.
+                  </p>
+                  <span class="market-status" data-i18n="comingSoon">
+                    Coming Soon
+                  </span>
+                </div>
+              </article>
+
+              <article class="market-card">
+                <div class="market-art market-art-gold">
+                  <span>∞</span>
+                </div>
+                <div class="market-info">
+                  <span class="market-category">IDEAS</span>
+                  <h4>Future Concepts</h4>
+                  <p data-i18n="marketItemThree">
+                    Discover concepts for tomorrow.
+                  </p>
+                  <span class="market-status" data-i18n="comingSoon">
+                    Coming Soon
+                  </span>
+                </div>
+              </article>
+            </div>
+
+            <div class="demo-notice" data-i18n="marketNotice">
+              This is a demonstration catalog. No purchases or payments are processed.
+            </div>
+          </div>
+        </div>
+
+        <!-- STUDIO PAGE -->
+        <div class="page-content hidden" id="page-studio">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX STUDIO</h3>
+                <p class="panel-description" data-i18n="studioIntro">
+                  A creative space for ideas and inspiration.
+                </p>
+              </div>
+              <span class="panel-badge">CREATIVITY</span>
+            </div>
+
+            <div class="info-feature">
+              <div class="info-feature-icon">✦</div>
+              <div>
+                <h4 data-i18n="studioFeatureTitle">
+                  Create Beyond Limits
+                </h4>
+                <p data-i18n="studioFeatureText">
+                  Explore a growing collection of creative experiences,
+                  inspiration and tools.
+                </p>
+              </div>
+            </div>
+
+            <div class="empty-state">
+              <div>
+                <span class="empty-symbol">✧</span>
+                <h3 data-i18n="studioComingTitle">Something Creative Is Coming</h3>
+                <p data-i18n="studioComingText">
+                  The NEX Studio experience is being prepared.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOOLS PAGE -->
+        <div class="page-content hidden" id="page-tools">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX TOOLS</h3>
+                <p class="panel-description" data-i18n="toolsIntro">
+                  Useful digital utilities in one place.
+                </p>
+              </div>
+              <span class="panel-badge">PRODUCTIVITY</span>
+            </div>
+
+            <div class="info-feature">
+              <div class="info-feature-icon">⌘</div>
+              <div>
+                <h4 data-i18n="toolsFeatureTitle">
+                  Your Digital Toolkit
+                </h4>
+                <p data-i18n="toolsFeatureText">
+                  A dedicated space for practical tools and everyday tasks.
+                </p>
+              </div>
+            </div>
+
+            <div class="empty-state">
+              <div>
+                <span class="empty-symbol">⌘</span>
+                <h3 data-i18n="toolsComingTitle">Tools Are on the Way</h3>
+                <p data-i18n="toolsComingText">
+                  New utilities will be introduced in future updates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEARN PAGE -->
+        <div class="page-content hidden" id="page-learn">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX LEARN</h3>
+                <p class="panel-description" data-i18n="learnIntro">
+                  Discover knowledge and keep learning.
+                </p>
+              </div>
+              <span class="panel-badge">KNOWLEDGE</span>
+            </div>
+
+            <div class="info-feature">
+              <div class="info-feature-icon">◈</div>
+              <div>
+                <h4 data-i18n="learnFeatureTitle">
+                  Knowledge Opens Doors
+                </h4>
+                <p data-i18n="learnFeatureText">
+                  Explore educational ideas, learning resources and useful information.
+                </p>
+              </div>
+            </div>
+
+            <div class="empty-state">
+              <div>
+                <span class="empty-symbol">◈</span>
+                <h3 data-i18n="learnComingTitle">A World of Learning Awaits</h3>
+                <p data-i18n="learnComingText">
+                  Learning resources will be added in upcoming updates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SPACE PAGE -->
+        <div class="page-content hidden" id="page-space">
+          <div class="content-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">NEX SPACE</h3>
+                <p class="panel-description" data-i18n="spaceIntro">
+                  A connected place for digital exploration.
+                </p>
+              </div>
+              <span class="panel-badge">COMMUNITY</span>
+            </div>
+
+            <div class="info-feature">
+              <div class="info-feature-icon">◎</div>
+              <div>
+                <h4 data-i18n="spaceFeatureTitle">
+                  Connect With Possibilities
+                </h4>
+                <p data-i18n="spaceFeatureText">
+                  A foundation for future community features and shared experiences.
+                </p>
+              </div>
+            </div>
+
+            <div class="empty-state">
+              <div>
+                <span class="empty-symbol">◎</span>
+                <h3 data-i18n="spaceComingTitle">Your Space Is Being Prepared</h3>
+                <p data-i18n="spaceComingText">
+                  Community features are planned for future releases.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+            <!-- =====================================================
+           END OF MAIN CONTENT
+           ===================================================== -->
+
+    </main>
+
+    <!-- =======================================================
+         FOOTER
+         ======================================================= -->
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <span class="footer-logo">NEXORA</span>
+        <span class="footer-caption">BEYOND THE ORDINARY</span>
+      </div>
+
+      <p class="footer-description" data-i18n="footerDescription">
+        One Platform. Endless Possibilities.
+      </p>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NEXORA</span>
+        <span data-i18n="footerRights">All rights reserved.</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================
+       BOTTOM NAVIGATION
+       ========================================================= -->
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+
+    <button class="nav-item active" type="button" data-nav="home">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="m3 10 9-7 9 7"/>
+        <path d="M5 9v11h14V9"/>
+        <path d="M9 20v-7h6v7"/>
+      </svg>
+      <span data-i18n="navHome">HOME</span>
+    </button>
+
+    <button class="nav-item" type="button" data-nav="pulse">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M3 12h4l3-8 4 16 3-8h4"/>
+      </svg>
+      <span>PULSE</span>
+    </button>
+
+    <button class="nav-item" type="button" data-nav="play">
+      <svg class="icon" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="4"/>
+        <path d="m9 8 7 4-7 4V8Z"/>
+      </svg>
+      <span>PLAY</span>
+    </button>
+
+    <button class="nav-item" type="button" data-nav="market">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M3 9h18l-2 12H5L3 9Z"/>
+        <path d="M8 9a4 4 0 0 1 8 0"/>
+      </svg>
+      <span>MARKET</span>
+    </button>
+
+    <button class="nav-item" type="button" data-nav="tools">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="m14 7 3 3"/>
+        <path d="m5 19 9-9a4 4 0 0 0 5-5l-3 3-3-3 3-3a4 4 0 0 0-5 5l-9 9v4h4l-1-1Z"/>
+      </svg>
+      <span>TOOLS</span>
+    </button>
+
+  </nav>
+
+  <!-- =========================================================
+       ADDITIONAL COMPONENT STYLES
+       ========================================================= -->
+
+  <style>
+    .site-footer {
+      margin-top: 55px;
+      padding: 25px 0 18px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: .2em;
+      color: var(--text);
+    }
+
+    .footer-caption {
+      color: var(--cyan);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: .2em;
+    }
+
+    .footer-description {
+      margin: 13px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      margin: 18px 0;
+      background: var(--line);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted-2);
+      font-size: 9px;
+    }
+
+    .game-container {
+      max-width: 420px;
+      margin: 10px auto;
+    }
+
+    .game-heading,
+    .game-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .game-label {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .game-turn {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      width: min(100%, 330px);
+      margin: 20px auto;
+    }
+
+    .game-cell {
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      color: var(--cyan);
+      background: linear-gradient(145deg, var(--surface-2), var(--bg-soft));
+      font-size: 35px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .2s var(--ease);
+    }
+
+    .game-cell:hover {
+      border-color: var(--cyan);
+      background: var(--surface-3);
+    }
+
+    .game-cell.winner {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(82, 214, 160, .09);
+    }
+
+    .game-message {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .market-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .market-art {
+      display: grid;
+      min-height: 105px;
+      place-items: center;
+      font-size: 34px;
+      font-weight: 950;
+    }
+
+    .market-art-blue {
+      color: #76E8FF;
+      background: linear-gradient(135deg, #102C48, #174B67);
+    }
+
+    .market-art-purple {
+      color: #D0B9FF;
+      background: linear-gradient(135deg, #282044, #51417B);
+    }
+
+    .market-art-gold {
+      color: #FFE1A1;
+      background: linear-gradient(135deg, #44351D, #80602E);
+    }
+
+    .market-info {
+      padding: 13px;
+    }
+
+    .market-category {
+      color: var(--cyan);
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: .13em;
+    }
+
+    .market-info h4 {
+      margin: 8px 0 6px;
+      font-size: 12px;
+    }
+
+    .market-info p {
+      min-height: 35px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .market-status {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .info-feature {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 20px 0;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(55, 216, 255, .035);
+    }
+
+    .info-feature-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      place-items: center;
+      border: 1px solid rgba(55, 216, 255, .25);
+      border-radius: 14px;
+      color: var(--cyan);
+      background: rgba(55, 216, 255, .08);
+      font-size: 23px;
+    }
+
+    .info-feature h4 {
+      margin: 0 0 6px;
+      font-size: 12px;
+    }
+
+    .info-feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .empty-symbol {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--violet);
+      font-size: 30px;
+    }
+
+    .empty-state h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .empty-state p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .market-card {
+        display: grid;
+        grid-template-columns: 105px minmax(0, 1fr);
+      }
+
+      .market-art {
+        min-height: 100%;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .game-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .game-footer .button-primary {
+        width: 100%;
+      }
+    }
+    </style>
+    
+<script>
+/* =========================================================
+   NEXORA — MAIN APPLICATION SCRIPT
+   ========================================================= */
+
+(function () {
+  "use strict";
+
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+  const $$ = (selector, parent = document) =>
+    Array.from(parent.querySelectorAll(selector));
+
+  /* -------------------------------------------------------
+     TELEGRAM WEB APP
+     ------------------------------------------------------- */
+
+  const tg = window.Telegram?.WebApp;
+
+  if (tg) {
+    try {
+      tg.ready();
+      tg.expand();
+    } catch (error) {
+      console.warn("Telegram WebApp initialization:", error);
+    }
+  }
+
+  /* -------------------------------------------------------
+     LANGUAGE SYSTEM
+     ------------------------------------------------------- */
+
+  const translations = {
+    en: {
+      heroEyebrow: "THE NEXT DIGITAL EXPERIENCE",
+      heroLineOne: "Beyond the",
+      heroLineTwo: "Ordinary.",
+      heroDescription:
+        "Discover a smarter digital world. Explore technology, creativity, entertainment and innovation in one connected ecosystem.",
+      explore: "Explore Platform",
+      discover: "Discover More",
+      platformReady: "PLATFORM EXPERIENCE",
+      digitalEcosystem: "One Platform. Endless Possibilities.",
+      discoverKicker: "EXPLORE NEXORA",
+      discoverTitle: "Discover Your Digital World",
+      discoverDescription:
+        "Explore a growing collection of digital experiences.",
+      viewAll: "View All",
+      pulseDescription: "Discover updates, stories and digital insights.",
+      playDescription: "Enjoy interactive games and entertainment.",
+      marketDescription: "Explore products and digital opportunities.",
+      studioDescription: "Create, design and bring ideas to life.",
+      toolsDescription: "Discover useful tools for everyday tasks.",
+      learnDescription: "Explore knowledge and learning experiences.",
+      spaceDescription: "Connect, share and explore communities.",
+
+      backHome: "Back to Home",
+      pulseIntro:
+        "A dedicated space for updates, ideas and digital stories.",
+      pulseOneTitle: "Technology Is Evolving",
+      pulseOneText:
+        "Discover how digital innovation continues to shape our everyday experiences.",
+      pulseTwoTitle: "Ideas Create Possibilities",
+      pulseTwoText:
+        "Creative thinking can turn simple ideas into meaningful projects.",
+      pulseThreeTitle: "Welcome to NEXORA",
+      pulseThreeText:
+        "Explore the different experiences available across this platform.",
+      demoNotice:
+        "Demo content: these are sample stories, not live news.",
+      playIntro:
+        "Take a break and enjoy simple interactive entertainment.",
+      ticTacToe: "Tic-Tac-Toe",
+      gameMessage: "Choose a square to begin.",
+      newGame: "New Game",
+      localGameNotice:
+        "This is a local two-player game on the same device.",
+      marketIntro:
+        "Explore the NEXORA digital marketplace experience.",
+      marketItemOne: "Digital Products",
+      marketItemTwo: "Creative Resources",
+      marketItemThree: "Useful Services",
+      comingSoon: "Coming Soon",
+      marketNotice:
+        "This is a showcase preview. No purchases or payments are available.",
+      studioIntro:
+        "A creative environment for ideas, design and digital production.",
+      studioFeatureTitle: "Creative Workspace",
+      studioFeatureText:
+        "A future space for creating and organizing digital projects.",
+      studioComingTitle: "More Creative Tools",
+      studioComingText:
+        "Additional creative experiences are planned for future updates.",
+      toolsIntro:
+        "A collection of useful digital tools designed to simplify everyday tasks.",
+      toolsFeatureTitle: "Smart Utilities",
+      toolsFeatureText:
+        "Explore a future collection of practical digital utilities.",
+      toolsComingTitle: "Tools Library",
+      toolsComingText:
+        "More tools and utilities will be introduced in future updates.",
+      learnIntro:
+        "Discover educational content and opportunities to expand your knowledge.",
+      learnFeatureTitle: "Learning Hub",
+      learnFeatureText:
+        "A future destination for educational resources and useful knowledge.",
+      learnComingTitle: "Learning Resources",
+      learnComingText:
+        "More learning experiences are planned for upcoming releases.",
+      spaceIntro:
+        "A place to explore communities and connect through shared interests.",
+      spaceFeatureTitle: "Community Space",
+      spaceFeatureText:
+        "A future environment for community experiences and interaction.",
+      spaceComingTitle: "Community Features",
+      spaceComingText:
+        "More community features will arrive in future updates.",
+      footerDescription:
+        "One platform. Endless possibilities.",
+      footerRights: "All rights reserved.",
+      navHome: "Home"
+    },
+
+    fa: {
+      heroEyebrow: "تجربه‌ای نو از دنیای دیجیتال",
+      heroLineOne: "فراتر از",
+      heroLineTwo: "معمولی.",
+      heroDescription:
+        "دنیای هوشمند دیجیتال را کشف کنید. تکنولوژی، خلاقیت، سرگرمی و نوآوری را در یک پلتفرم تجربه کنید.",
+      explore: "کاوش پلتفرم",
+      discover: "بیشتر بدانید",
+      platformReady: "تجربه پلتفرم",
+      digitalEcosystem: "یک پلتفرم، امکانات بی‌پایان.",
+      discoverKicker: "اکتشاف NEXORA",
+      discoverTitle: "دنیای دیجیتال خود را کشف کنید",
+      discoverDescription:
+        "مجموعه‌ای از تجربه‌های دیجیتال را کشف کنید.",
+      viewAll: "مشاهده همه",
+      pulseDescription: "اخبار نمونه، داستان‌ها و مطالب دیجیتال.",
+      playDescription: "از بازی‌ها و سرگرمی‌های تعاملی لذت ببرید.",
+      marketDescription: "محصولات و فرصت‌های دیجیتال را بررسی کنید.",
+      studioDescription: "خلق کنید، طراحی کنید و ایده‌های خود را زنده سازید.",
+      toolsDescription: "ابزارهای کاربردی برای کارهای روزمره.",
+      learnDescription: "دانش و تجربه‌های آموزشی را کشف کنید.",
+      spaceDescription: "با جوامع مختلف ارتباط برقرار کنید.",
+
+      backHome: "بازگشت به خانه",
+      pulseIntro:
+        "فضایی برای مطالب، ایده‌ها و داستان‌های دنیای دیجیتال.",
+      pulseOneTitle: "تکنولوژی در حال تحول است",
+      pulseOneText:
+        "ببینید نوآوری دیجیتال چگونه تجربه‌های روزمره ما را تغییر می‌دهد.",
+      pulseTwoTitle: "ایده‌ها فرصت می‌آفرینند",
+      pulseTwoText:
+        "تفکر خلاق می‌تواند ایده‌های ساده را به پروژه‌های ارزشمند تبدیل کند.",
+      pulseThreeTitle: "به NEXORA خوش آمدید",
+      pulseThreeText:
+        "بخش‌های مختلف این پلتفرم را کشف کنید.",
+      demoNotice:
+        "محتوای نمایشی: این مطالب نمونه هستند و خبر زنده نیستند.",
+      playIntro:
+        "کمی استراحت کنید و از سرگرمی‌های تعاملی لذت ببرید.",
+      ticTacToe: "بازی دوز",
+      gameMessage: "برای شروع یک خانه را انتخاب کنید.",
+      newGame: "بازی جدید",
+      localGameNotice:
+        "این بازی دو نفره و روی یک دستگاه اجرا می‌شود.",
+      marketIntro:
+        "تجربه بازار دیجیتال NEXORA را کشف کنید.",
+      marketItemOne: "محصولات دیجیتال",
+      marketItemTwo: "منابع خلاقانه",
+      marketItemThree: "خدمات کاربردی",
+      comingSoon: "به‌زودی",
+      marketNotice:
+        "این بخش نمایشی است؛ خرید و پرداخت واقعی فعال نیست.",
+      studioIntro:
+        "محیطی خلاقانه برای ایده‌ها، طراحی و تولید دیجیتال.",
+      studioFeatureTitle: "فضای کاری خلاقانه",
+      studioFeatureText:
+        "فضایی برای ساخت و سازمان‌دهی پروژه‌های دیجیتال در آینده.",
+      studioComingTitle: "ابزارهای خلاقانه بیشتر",
+      studioComingText:
+        "امکانات خلاقانه بیشتری در به‌روزرسانی‌های آینده ارائه می‌شود.",
+      toolsIntro:
+        "مجموعه‌ای از ابزارهای دیجیتال برای ساده‌تر کردن کارهای روزمره.",
+      toolsFeatureTitle: "ابزارهای هوشمند",
+      toolsFeatureText:
+        "مجموعه‌ای از ابزارهای کاربردی دیجیتال در آینده.",
+      toolsComingTitle: "کتابخانه ابزارها",
+      toolsComingText:
+        "ابزارهای بیشتری در به‌روزرسانی‌های آینده اضافه خواهند شد.",
+      learnIntro:
+        "مطالب آموزشی و فرصت‌های گسترش دانش خود را کشف کنید.",
+      learnFeatureTitle: "مرکز آموزش",
+      learnFeatureText:
+        "فضایی برای منابع آموزشی و دانش کاربردی در آینده.",
+      learnComingTitle: "منابع آموزشی",
+      learnComingText:
+        "تجربه‌های آموزشی بیشتری در نسخه‌های آینده ارائه می‌شود.",
+      spaceIntro:
+        "فضایی برای کشف جوامع و ارتباط بر اساس علاقه‌های مشترک.",
+      spaceFeatureTitle: "فضای اجتماعی",
+      spaceFeatureText:
+        "محیطی برای تجربه‌های اجتماعی و تعامل در آینده.",
+      spaceComingTitle: "امکانات اجتماعی",
+      spaceComingText:
+        "امکانات اجتماعی بیشتری در به‌روزرسانی‌های آینده ارائه می‌شود.",
+      footerDescription:
+        "یک پلتفرم، امکانات بی‌پایان.",
+      footerRights: "تمام حقوق محفوظ است.",
+      navHome: "خانه"
+    }
+  };
+
+  let currentLanguage = "en";
+
+  try {
+    const savedLanguage = localStorage.getItem("nexora-language");
+
+    if (savedLanguage === "fa" || savedLanguage === "en") {
+      currentLanguage = savedLanguage;
+    }
+  } catch (error) {
+    console.warn("Language preference unavailable.");
+  }
+
+  function applyLanguage(language) {
+    if (!translations[language]) return;
+
+    currentLanguage = language;
+
+    document.documentElement.lang = language;
+    document.documentElement.dir =
+      language === "fa" ? "rtl" : "ltr";
+
+    $$("[data-i18n]").forEach(element => {
+      const key = element.getAttribute("data-i18n");
+      const value = translations[language][key];
+
+      if (typeof value === "string") {
+        element.textContent = value;
+      }
+    });
+
+    const languageButton = $("#languageButton");
+
+    if (languageButton) {
+      languageButton.textContent =
+        language === "en" ? "FA" : "EN";
+
+      languageButton.setAttribute(
+        "aria-label",
+        language === "en"
+          ? "Switch to Persian"
+          : "Switch to English"
+      );
+    }
+
+    updatePageHeader(activePage);
+
+    updateGameStatus();
+
+    try {
+      localStorage.setItem("nexora-language", language);
+    } catch (error) {
+      console.warn("Could not save language preference.");
+    }
+  }
+
+  /* -------------------------------------------------------
+     PAGE NAVIGATION
+     ------------------------------------------------------- */
+
+  const pageInformation = {
+    pulse: {
+      en: {
+        kicker: "NEX PULSE",
+        title: "Digital Pulse",
+        description:
+          "Updates, ideas and stories from the digital world."
+      },
+      fa: {
+        kicker: "نبض NEX",
+        title: "نبض دیجیتال",
+        description:
+          "مطالب، ایده‌ها و داستان‌هایی از دنیای دیجیتال."
+      }
+    },
+
+    play: {
+      en: {
+        kicker: "NEX PLAY",
+        title: "Entertainment",
+        description:
+          "Enjoy interactive games and simple experiences."
+      },
+      fa: {
+        kicker: "بازی NEX",
+        title: "سرگرمی",
+        description:
+          "از بازی‌های تعاملی و تجربه‌های ساده لذت ببرید."
+      }
+    },
+
+    market: {
+      en: {
+        kicker: "NEX MARKET",
+        title: "Digital Market",
+        description:
+          "Explore digital products and creative opportunities."
+      },
+      fa: {
+        kicker: "بازار NEX",
+        title: "بازار دیجیتال",
+        description:
+          "محصولات دیجیتال و فرصت‌های خلاقانه را بررسی کنید."
+      }
+    },
+
+    studio: {
+      en: {
+        kicker: "NEX STUDIO",
+        title: "Creative Studio",
+        description:
+          "A future space for creativity and production."
+      },
+      fa: {
+        kicker: "استودیوی NEX",
+        title: "استودیوی خلاقیت",
+        description:
+          "فضایی برای خلاقیت و تولید در آینده."
+      }
+    },
+
+    tools: {
+      en: {
+        kicker: "NEX TOOLS",
+        title: "Smart Tools",
+        description:
+          "Discover useful tools for your digital life."
+      },
+      fa: {
+        kicker: "ابزارهای NEX",
+        title: "ابزارهای هوشمند",
+        description:
+          "ابزارهای کاربردی برای زندگی دیجیتال خود کشف کنید."
+      }
+    },
+
+    learn: {
+      en: {
+        kicker: "NEX LEARN",
+        title: "Learning Center",
+        description:
+          "Discover knowledge and educational experiences."
+      },
+      fa: {
+        kicker: "آموزش NEX",
+        title: "مرکز یادگیری",
+        description:
+          "دانش و تجربه‌های آموزشی را کشف کنید."
+      }
+    },
+
+    space: {
+      en: {
+        kicker: "NEX SPACE",
+        title: "Community Space",
+        description:
+          "Explore communities and shared experiences."
+      },
+      fa: {
+        kicker: "فضای NEX",
+        title: "فضای اجتماعی",
+        description:
+          "جوامع و تجربه‌های مشترک را کشف کنید."
+      }
+    }
+  };
+
+  let activePage = "home";
+
+  function updatePageHeader(page) {
+    const info = pageInformation[page];
+
+    if (!info) return;
+
+    const languageInfo = info[currentLanguage];
+
+    const kicker = $("#pageKicker");
+    const title = $("#pageTitle");
+    const description = $("#pageDescription");
+
+    if (kicker) kicker.textContent = languageInfo.kicker;
+    if (title) title.textContent = languageInfo.title;
+
+    if (description) {
+      description.textContent = languageInfo.description;
+    }
+  }
+
+  function setNavigationActive(page) {
+    $$("[data-nav]").forEach(item => {
+      const itemPage = item.getAttribute("data-nav");
+
+      item.classList.toggle(
+        "active",
+        itemPage === page ||
+        (page === "home" && itemPage === "home")
+      );
+
+      if (itemPage === page) {
+        item.setAttribute("aria-current", "page");
+      } else {
+        item.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function openPage(page) {
+    if (!pageInformation[page]) return;
+
+    activePage = page;
+
+    const homeSection = $("#homeSection");
+    const discoverSection = $("#discoverSection");
+    const internalSection = $("#internalSection");
+    const platformStatus = $(".platform-status");
+
+    if (homeSection) homeSection.classList.add("hidden");
+
+    if (discoverSection) {
+      discoverSection.classList.add("hidden");
+    }
+
+    if (platformStatus) {
+      platformStatus.classList.add("hidden");
+    }
+
+    if (internalSection) {
+      internalSection.classList.remove("hidden");
+    }
+
+    $$(".page-content").forEach(section => {
+      section.classList.add("hidden");
+    });
+
+    const selectedPage = $("#page-" + page);
+
+    if (selectedPage) {
+      selectedPage.classList.remove("hidden");
+    }
+
+    updatePageHeader(page);
+    setNavigationActive(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  function goHome() {
+    activePage = "home";
+
+    const homeSection = $("#homeSection");
+    const discoverSection = $("#discoverSection");
+    const internalSection = $("#internalSection");
+    const platformStatus = $(".platform-status");
+
+    if (homeSection) homeSection.classList.remove("hidden");
+
+    if (discoverSection) {
+      discoverSection.classList.remove("hidden");
+    }
+
+    if (platformStatus) {
+      platformStatus.classList.remove("hidden");
+    }
+
+    if (internalSection) {
+      internalSection.classList.add("hidden");
+    }
+
+    $$(".page-content").forEach(section => {
+      section.classList.add("hidden");
+    });
+
+    setNavigationActive("home");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  /* -------------------------------------------------------
+     FEATURE CARDS
+     ------------------------------------------------------- */
+
+  $$("[data-page]").forEach(card => {
+    card.addEventListener("click", () => {
+      const page = card.getAttribute("data-page");
+      openPage(page);
+    });
+
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+
+        const page = card.getAttribute("data-page");
+        openPage(page);
+      }
     });
   });
-}
-document.querySelectorAll("[data-market]").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-market]").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    renderMarket(button.dataset.market);
-  });
-});
 
-/* NEX PLAY — local Tic Tac Toe */
-let gameBoard = Array(9).fill("");
-let currentPlayer = "X";
-let gameOver = false;
-const winningLines = [
-  [0,1,2],[3,4,5],[6,7,8],
-  [0,3,6],[1,4,7],[2,5,8],
-  [0,4,8],[2,4,6]
-];
+  /* -------------------------------------------------------
+     BUTTONS
+     ------------------------------------------------------- */
 
-function updateGameStatus(message) {
-  const status = document.getElementById("gameStatus");
-  if (!status) return;
-  if (message) {
-    status.textContent = message;
-    return;
+  const brandHome = $("#brandHome");
+  const homeButton = $("#homeButton");
+  const exploreButton = $("#exploreButton");
+  const aboutButton = $("#aboutButton");
+  const viewAllButton = $("#viewAllButton");
+  const backHomeButton = $("#backHomeButton");
+  const languageButton = $("#languageButton");
+
+  if (brandHome) {
+    brandHome.addEventListener("click", goHome);
   }
-  if (gameOver) return;
-  status.textContent = language === "fa"
-    ? `نوبت بازیکن ${currentPlayer}`
-    : `Player ${currentPlayer} — your turn`;
-}
 
-function checkWinner() {
-  for (const line of winningLines) {
-    const [a,b,c] = line;
-    if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-      return gameBoard[a];
+  if (homeButton) {
+    homeButton.addEventListener("click", goHome);
+  }
+
+  if (backHomeButton) {
+    backHomeButton.addEventListener("click", goHome);
+  }
+
+  if (exploreButton) {
+    exploreButton.addEventListener("click", () => {
+      const section = $("#discoverSection");
+
+      if (activePage !== "home") {
+        goHome();
+      }
+
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 50);
+      }
+    });
+  }
+
+  if (aboutButton) {
+    aboutButton.addEventListener("click", () => {
+      const section = $("#discoverSection");
+
+      if (activePage !== "home") {
+        goHome();
+      }
+
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 50);
+      }
+    });
+  }
+
+  if (viewAllButton) {
+    viewAllButton.addEventListener("click", () => {
+      const grid = $(".feature-grid");
+
+      if (grid) {
+        grid.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+  }
+
+  if (languageButton) {
+    languageButton.addEventListener("click", () => {
+      const nextLanguage =
+        currentLanguage === "en" ? "fa" : "en";
+
+      applyLanguage(nextLanguage);
+    });
+  }
+
+  /* -------------------------------------------------------
+     BOTTOM NAVIGATION
+     ------------------------------------------------------- */
+
+  $$("[data-nav]").forEach(item => {
+    item.addEventListener("click", () => {
+      const page = item.getAttribute("data-nav");
+
+      if (page === "home") {
+        goHome();
+      } else {
+        openPage(page);
+      }
+    });
+  });
+
+  /* -------------------------------------------------------
+     TIC-TAC-TOE GAME
+     ------------------------------------------------------- */
+
+  const gameCells = $$(".game-cell[data-cell]");
+  const gameStatus = $("#gameStatus");
+  const gameMessage = $("#gameMessage");
+  const resetGameButton = $("#resetGameButton");
+
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  let gameBoard = ["", "", "", "", "", "", "", "", ""];
+  let currentPlayer = "X";
+  let gameFinished = false;
+
+  function updateGameStatus(message) {
+    if (gameStatus) {
+      gameStatus.textContent =
+        message || (
+          currentLanguage === "fa"
+            ? "نوبت " + currentPlayer
+            : currentPlayer + "'s turn"
+        );
     }
   }
-  return null;
-}
 
-function renderGame() {
-  document.querySelectorAll("[data-cell]").forEach(button => {
-    const index = Number(button.dataset.cell);
-    button.textContent = gameBoard[index];
-    button.disabled = Boolean(gameBoard[index]) || gameOver;
-  });
-}
+  function checkWinner() {
+    for (const combination of winningCombinations) {
+      const [a, b, c] = combination;
 
-document.querySelectorAll("[data-cell]").forEach(button => {
-  button.addEventListener("click", () => {
-    const index = Number(button.dataset.cell);
-    if (gameBoard[index] || gameOver) return;
-    gameBoard[index] = currentPlayer;
-    const winner = checkWinner();
-    if (winner) {
-      gameOver = true;
-      updateGameStatus(language === "fa" ? `بازیکن ${winner} برنده شد!` : `Player ${winner} wins!`);
-    } else if (gameBoard.every(Boolean)) {
-      gameOver = true;
-      updateGameStatus(language === "fa" ? "بازی مساوی شد!" : "It's a draw!");
+      if (
+        gameBoard[a] &&
+        gameBoard[a] === gameBoard[b] &&
+        gameBoard[a] === gameBoard[c]
+      ) {
+        return combination;
+      }
+    }
+
+    return null;
+  }
+
+  function finishGame(winningCells) {
+    gameFinished = true;
+
+    if (winningCells) {
+      winningCells.forEach(index => {
+        const cell = gameCells.find(
+          item => Number(item.dataset.cell) === index
+        );
+
+        if (cell) {
+          cell.classList.add("winner");
+        }
+      });
+
+      const winner = gameBoard[winningCells[0]];
+
+      updateGameStatus(
+        currentLanguage === "fa"
+          ? "بازیکن " + winner + " برنده شد!"
+          : "Player " + winner + " wins!"
+      );
+
     } else {
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-      updateGameStatus();
+      updateGameStatus(
+        currentLanguage === "fa"
+          ? "بازی مساوی شد!"
+          : "It's a draw!"
+      );
     }
-    renderGame();
-  });
-});
+  }
 
-document.getElementById("resetGame").addEventListener("click", () => {
-  gameBoard = Array(9).fill("");
-  currentPlayer = "X";
-  gameOver = false;
-  renderGame();
-  updateGameStatus();
-});
-
-/* NEX TOOLS — text counter */
-const counterText = document.getElementById("counterText");
-counterText.addEventListener("input", () => {
-  const text = counterText.value;
-  const characters = text.length;
-  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-  document.getElementById("counterResult").textContent = language === "fa"
-    ? `${characters} نویسه · ${words} واژه`
-    : `${characters} characters · ${words} words`;
-});
-
-/* Case converter */
-let convertedText = "";
-document.querySelectorAll("[data-case]").forEach(button => {
-  button.addEventListener("click", () => {
-    const value = document.getElementById("caseText").value;
-    const mode = button.dataset.case;
-    if (mode === "upper") convertedText = value.toUpperCase();
-    if (mode === "lower") convertedText = value.toLowerCase();
-    if (mode === "title") {
-      convertedText = value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+  function playGame(index, cell) {
+    if (
+      gameFinished ||
+      gameBoard[index] !== ""
+    ) {
+      return;
     }
-    document.getElementById("caseResult").textContent = convertedText;
+
+    gameBoard[index] = currentPlayer;
+
+    cell.textContent = currentPlayer;
+    cell.disabled = true;
+    cell.classList.add(
+      currentPlayer === "X" ? "player-x" : "player-o"
+    );
+
+    const winningCells = checkWinner();
+
+    if (winningCells) {
+      finishGame(winningCells);
+      return;
+    }
+
+    if (gameBoard.every(value => value !== "")) {
+      finishGame(null);
+      return;
+    }
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+    updateGameStatus();
+  }
+
+  function resetGame() {
+    gameBoard = ["", "", "", "", "", "", "", "", ""];
+    currentPlayer = "X";
+    gameFinished = false;
+
+    gameCells.forEach(cell => {
+      cell.textContent = "";
+      cell.disabled = false;
+
+      cell.classList.remove(
+        "winner",
+        "player-x",
+        "player-o"
+      );
+    });
+
+    updateGameStatus();
+
+    if (gameMessage) {
+      gameMessage.textContent =
+        translations[currentLanguage].gameMessage;
+    }
+  }
+
+  gameCells.forEach(cell => {
+    cell.addEventListener("click", () => {
+      const index = Number(cell.dataset.cell);
+
+      if (Number.isInteger(index) && index >= 0 && index < 9) {
+        playGame(index, cell);
+      }
+    });
   });
-});
 
-document.getElementById("copyCase").addEventListener("click", async () => {
-  if (!convertedText) {
-    toast(language === "fa" ? "ابتدا متنی را تبدیل کنید." : "Convert some text first.");
-    return;
+  if (resetGameButton) {
+    resetGameButton.addEventListener("click", resetGame);
   }
-  try {
-    await navigator.clipboard.writeText(convertedText);
-    toast(language === "fa" ? "متن کپی شد." : "Text copied.");
-  } catch {
-    toast(language === "fa" ? "کپی در این مرورگر ممکن نیست." : "Clipboard is not available in this browser.");
-  }
-});
 
-/* Unit converter */
-document.getElementById("convertKm").addEventListener("click", () => {
-  const value = Number(document.getElementById("kmInput").value);
-  const result = document.getElementById("kmResult");
-  if (!Number.isFinite(value) || value < 0 || document.getElementById("kmInput").value === "") {
-    result.textContent = language === "fa" ? "یک عدد معتبر وارد کنید." : "Enter a valid number.";
-    return;
-  }
-  const miles = value * 0.621371;
-  result.textContent = language === "fa"
-    ? `${value} کیلومتر = ${miles.toFixed(3)} مایل`
-    : `${value} km = ${miles.toFixed(3)} miles`;
-});
+  /* -------------------------------------------------------
+     INITIAL APPLICATION STATE
+     ------------------------------------------------------- */
 
-/* Initial rendering */
-renderPulse("all");
-renderMarket("all");
-renderGame();
-applyLanguage();
+  applyLanguage(currentLanguage);
+  goHome();
+  resetGame();
+
+  console.log("NEXORA initialized successfully.");
+
+})();
 </script>
+
 </body>
 </html>
